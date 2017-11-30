@@ -1,0 +1,11 @@
+<div id="property">
+  <div
+    class = "a1 a2 a3"
+    [class.out] = "className"
+    [class.active] = "className">11</div>
+  <div
+    (myClick) ="clickMessage=$event" clickable>
+    click with myClick
+  </div>
+  <app-property-event (somethingRequest) = "request($event)"></app-property-event>
+</div>
