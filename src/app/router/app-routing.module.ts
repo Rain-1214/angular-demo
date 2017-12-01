@@ -5,6 +5,7 @@ import { HeroComponent } from '../heroes/hero.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { HeroDetailComponent } from '../heroes/hero-detail.component';
 import { PropertyComponent } from '../study/property/property.component';
+import { LifeComponent } from '../study/lifecycleHooks/life.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'property',
     component: PropertyComponent
+  },
+  {
+    path: 'life',
+    component: LifeComponent
   },
   {
     path: '',

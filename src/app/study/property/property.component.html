@@ -7,5 +7,42 @@
     (myClick) ="clickMessage=$event" clickable>
     click with myClick
   </div>
-  <app-property-event (somethingRequest) = "request($event)"></app-property-event>
+  <div>
+    <p [style.fontSize.px]="size">ParentSize:{{size}}</p>
+  </div>
+  <app-property-event
+    [(size)] = "size"
+    (somethingRequest) = "request($event)"></app-property-event>
+  <hr>
+  <div>
+    <p [style.fontSize] = "'x-large'">af</p>
+  </div>
+  <div>
+    <span
+      *ngFor="let value of sizes;let i = index;">{{value}} {{i}} | </span>
+  </div>
+  <hr>
+  <div>
+    <ul>
+      <li *ngFor="let hero of heroes; let i=index; trackBy: trackByHero">{{hero.name | uppercase | lowercase}}</li>
+    </ul>
+    <button (click) = 'addHero()'>add</button>
+    <button (click) = 'getHeroes()'>afresh</button>
+  </div>
+  <hr>
+  <div>
+    <div>
+      <input [(ngModel)] = 'raidoSelect' value='red' type="radio" name="color">red
+      <input [(ngModel)] = 'raidoSelect' value='yellow' type="radio" name="color">yellow
+      <input [(ngModel)] = 'raidoSelect' value='green' type="radio" name="color">green
+    </div>
+    <div [ngSwitch] = "raidoSelect">
+      <p *ngSwitchCase = "'red'">red</p>
+      <p *ngSwitchCase = "'yellow'">yellow</p>
+      <p *ngSwitchCase = "'green'">green</p>
+      <p *ngSwitchDefault>black</p>
+    </div>
+  </div>
+  <hr>
+
 </div>

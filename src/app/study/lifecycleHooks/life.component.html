@@ -1,0 +1,13 @@
+<div id="life">
+  <app-life-hero
+    *ngFor="let hero of heroes;trackBy:trackByHero"
+    [hero] = 'hero'
+    (deleteRequest) = 'deleteHero($event)'
+    appMySpy></app-life-hero>
+  <hr>
+  <app-life-hero
+    *ngIf="hero"
+    [hero] = 'hero'></app-life-hero>
+  <input [(ngModel)] = 'hero.name' type="text">{{hero.name}}
+  <input [(ngModel)] = 'testString' type="text">{{testString}}
+</div>
