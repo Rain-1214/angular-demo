@@ -6,6 +6,8 @@ import { DashboardComponent } from '../dashboard/dashboard.component';
 import { HeroDetailComponent } from '../heroes/hero-detail.component';
 import { PropertyComponent } from '../study/property/property.component';
 import { LifeComponent } from '../study/lifecycleHooks/life.component';
+import { ComCmucaComponent } from '../study/componentCommunication/comCommunication.component';
+import { AdBannerComponent } from '../study/dynamicComponent/ad-banner.component';
 
 const routes: Routes = [
   {
@@ -27,6 +29,14 @@ const routes: Routes = [
   {
     path: 'life',
     component: LifeComponent
+  },
+  {
+    path: 'communication',
+    component: ComCmucaComponent
+  },
+  {
+    path: 'dynamic',
+    component: AdBannerComponent
   },
   {
     path: '',

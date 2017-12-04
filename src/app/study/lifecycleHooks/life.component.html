@@ -1,13 +1,26 @@
 <div id="life">
-  <app-life-hero
+  <!-- <app-life-hero
     *ngFor="let hero of heroes;trackBy:trackByHero"
     [hero] = 'hero'
     (deleteRequest) = 'deleteHero($event)'
-    appMySpy></app-life-hero>
+    ></app-life-hero> -->
+    <!-- appMySpy></app-life-hero> -->
   <hr>
-  <app-life-hero
+  <!-- <app-life-hero
     *ngIf="hero"
-    [hero] = 'hero'></app-life-hero>
-  <input [(ngModel)] = 'hero.name' type="text">{{hero.name}}
+    [hero] = 'hero'
+    [lifeHeroStingTest] = 'testString'></app-life-hero>
+  <input *ngIf="hero" [(ngModel)] = 'hero.name' type="text">{{hero?.name}}
   <input [(ngModel)] = 'testString' type="text">{{testString}}
+  <hr> -->
+  <app-life-hero
+    *ngIf="heroAfterView"
+    [hero] = "heroAfterView">
+    ace
+  </app-life-hero>
+  <app-life-hero
+  *ngIf="heroAfterView2"
+  [hero] = "heroAfterView2"></app-life-hero>
+  <br>
+  <button (click) = 'showChildren()'>Show Children</button>
 </div>

@@ -1,0 +1,22 @@
+<div id="communicatin">
+  <div>
+    <app-communication-hero
+      *ngIf="hero"
+      [hero] = "hero"
+      [hellowString] = "'hellow'"></app-communication-hero>
+  </div>
+  <hr>
+  <!-- <div>
+    <button (click) = 'timer.start()'>start</button>
+    <button (click) = 'timer.stop()'>stop</button>
+    <p>
+      {{timer.seconds}} <br>
+      {{timer.message}}
+    </p>
+    <app-communication-time #timer></app-communication-time>
+  </div> -->
+  <hr>
+  <app-communication-time></app-communication-time>
+  <hr>
+  <button (click) = 'sendMvp()'>sendMvp</button>
+</div>
