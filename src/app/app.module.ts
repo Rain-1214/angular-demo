@@ -11,6 +11,8 @@ import { AppComponent } from './app.component';
 
 import { HeroService } from './heroes/shared/hero.service';
 import { LoggerService } from './tool/logger/logger.Service';
+import { AdHeroJobComponent } from './study/dynamicComponent/adDetail/ad-hero-job.component';
+import { AdHeroProfileComponent } from './study/dynamicComponent/adDetail/ad-hero-profile.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,10 @@ import { LoggerService } from './tool/logger/logger.Service';
         return new LoggerService(true);
       }
     }
+  ],
+  entryComponents: [
+    AdHeroJobComponent,
+    AdHeroProfileComponent
   ],
   bootstrap: [AppComponent]
 })

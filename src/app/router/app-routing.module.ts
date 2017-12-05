@@ -7,7 +7,8 @@ import { HeroDetailComponent } from '../heroes/hero-detail.component';
 import { PropertyComponent } from '../study/property/property.component';
 import { LifeComponent } from '../study/lifecycleHooks/life.component';
 import { ComCmucaComponent } from '../study/componentCommunication/comCommunication.component';
-import { AdBannerComponent } from '../study/dynamicComponent/ad-banner.component';
+import { AdComponent } from '../study/dynamicComponent/ad.component';
+import { AttrDirComponent } from '../study/attributeDirective/attr-dir.component';
 
 const routes: Routes = [
   {
@@ -36,7 +37,11 @@ const routes: Routes = [
   },
   {
     path: 'dynamic',
-    component: AdBannerComponent
+    component: AdComponent
+  },
+  {
+    path: 'attrDir',
+    component: AttrDirComponent
   },
   {
     path: '',

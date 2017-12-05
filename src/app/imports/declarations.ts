@@ -1,5 +1,6 @@
 import { SpyDirective } from '../directive/mySpy.directive';
 import { AdDirective } from '../directive/ad.directive';
+import { HightLightDirective } from '../directive/hightLight.directive';
 
 import { HeroComponent } from '../heroes/hero.component';
 import { HeroDetailComponent } from '../heroes/hero-detail.component';
@@ -13,6 +14,10 @@ import { ComCmucaComponent } from '../study/componentCommunication/comCommunicat
 import { CmtHeroComponent } from '../study/componentCommunication/communicationHero/communication-hero.component';
 import { CmtTimeComponent } from '../study/componentCommunication/communicationTime/communication-time.component';
 import { AdBannerComponent } from '../study/dynamicComponent/ad-banner.component';
+import { AdHeroJobComponent } from '../study/dynamicComponent/adDetail/ad-hero-job.component';
+import { AdHeroProfileComponent } from '../study/dynamicComponent/adDetail/ad-hero-profile.component';
+import { AdComponent } from '../study/dynamicComponent/ad.component';
+import { AttrDirComponent } from '../study/attributeDirective/attr-dir.component';
 
 export const declarationsArray = [
   HeroComponent,
@@ -26,7 +31,12 @@ export const declarationsArray = [
   ComCmucaComponent,
   CmtHeroComponent,
   CmtTimeComponent,
+  AdComponent,
   AdBannerComponent,
+  AdHeroJobComponent,
+  AdHeroProfileComponent,
+  AttrDirComponent,
   SpyDirective,
-  AdDirective
+  AdDirective,
+  HightLightDirective
 ];
