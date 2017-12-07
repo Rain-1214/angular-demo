@@ -1,6 +1,10 @@
 import { SpyDirective } from '../directive/mySpy.directive';
 import { AdDirective } from '../directive/ad.directive';
 import { HightLightDirective } from '../directive/hightLight.directive';
+import { UnLessDirective } from '../directive/unless.directive';
+
+import { ExponentialStrengthPipe } from '../pipe/exponential-strength.pipe';
+import { AxiosPipe } from '../pipe/axios.pipe';
 
 import { HeroComponent } from '../heroes/hero.component';
 import { HeroDetailComponent } from '../heroes/hero-detail.component';
@@ -18,8 +22,11 @@ import { AdHeroJobComponent } from '../study/dynamicComponent/adDetail/ad-hero-j
 import { AdHeroProfileComponent } from '../study/dynamicComponent/adDetail/ad-hero-profile.component';
 import { AdComponent } from '../study/dynamicComponent/ad.component';
 import { AttrDirComponent } from '../study/attributeDirective/attr-dir.component';
+import { StruDirComponent } from '../study/structrualDirective/stru-dir.component';
+import { PipeComponent } from '../study/pipes/pipes.component';
+import { AnimationComponent } from '../study/animation/animation.component';
 
-export const declarationsArray = [
+const componentArray = [
   HeroComponent,
   HeroDetailComponent,
   DashboardComponent,
@@ -36,7 +43,26 @@ export const declarationsArray = [
   AdHeroJobComponent,
   AdHeroProfileComponent,
   AttrDirComponent,
+  StruDirComponent,
+  PipeComponent,
+  AnimationComponent,
+];
+
+const directiveArray = [
   SpyDirective,
   AdDirective,
-  HightLightDirective
+  HightLightDirective,
+  UnLessDirective,
+];
+
+const pipeArray = [
+  ExponentialStrengthPipe,
+  AxiosPipe
+];
+
+
+export const declarationsArray = [
+  ...componentArray,
+  ...directiveArray,
+  ...pipeArray
 ];

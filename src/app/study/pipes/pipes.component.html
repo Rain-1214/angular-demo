@@ -1,0 +1,25 @@
+<div id="pipes">
+  <h1>Pipes</h1>
+  <p>
+    {{tom.name}} {{tom.age}} {{ tom.birthday | date:"yyyy-MM-dd"}} <br>
+    {{ 2 | exponentialStrength : 10}}
+  </p>
+  <hr>
+  <div>
+    <p>
+      Message is {{ message$ | async }}
+    </p>
+  </div>
+  <hr>
+  <div>
+    <ul>
+      <li *ngFor="let hero of ('assets/heroes' | axios )">{{hero.name | uppercase}}</li>
+    </ul>
+  </div>
+  <hr>
+  <div>
+      <ul>
+        <li *ngFor="let hero of ('assets/heroes' | axios )">{{hero.name | uppercase}}</li>
+      </ul>
+    </div>
+</div>

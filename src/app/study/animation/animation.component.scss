@@ -1,0 +1,29 @@
+ul{
+  margin: 15px;
+  li{
+    list-style-type: none;
+    padding: 10px 15px;
+    margin: 10px;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}
+
+
+.first{
+  li{
+    list-style-type: none;
+    display: inline-block;
+    background-color: #0cc;
+  }
+}
+
+.second{
+  li{
+    transform: translateX(0);
+    display: block;
+    width: 200px;
+    background: #cc0;
+  }
+}

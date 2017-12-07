@@ -1,0 +1,17 @@
+<div id="struDir">
+  <ul>
+    <li *ngFor="let hero of heroes">
+      <ng-container *ngIf="hero.id != 11">
+        {{ hero.name }} | {{hero.id}}
+      </ng-container>
+    </li>
+  </ul>
+  <hr>
+  <ul>
+    <li *ngFor="let hero of heroes">
+      <ng-container *appUnLess = 'hero.id != 11'>
+        {{ hero.name }} | {{hero.id}}
+      </ng-container>
+    </li>
+  </ul>
+</div>

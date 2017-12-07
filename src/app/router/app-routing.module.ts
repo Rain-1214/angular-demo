@@ -9,6 +9,9 @@ import { LifeComponent } from '../study/lifecycleHooks/life.component';
 import { ComCmucaComponent } from '../study/componentCommunication/comCommunication.component';
 import { AdComponent } from '../study/dynamicComponent/ad.component';
 import { AttrDirComponent } from '../study/attributeDirective/attr-dir.component';
+import { StruDirComponent } from '../study/structrualDirective/stru-dir.component';
+import { PipeComponent } from '../study/pipes/pipes.component';
+import { AnimationComponent } from '../study/animation/animation.component';
 
 const routes: Routes = [
   {
@@ -42,6 +45,18 @@ const routes: Routes = [
   {
     path: 'attrDir',
     component: AttrDirComponent
+  },
+  {
+    path: 'struDir',
+    component: StruDirComponent
+  },
+  {
+    path: 'pipe',
+    component: PipeComponent
+  },
+  {
+    path: 'animation',
+    component: AnimationComponent
   },
   {
     path: '',
