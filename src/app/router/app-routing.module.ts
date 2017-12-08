@@ -12,6 +12,9 @@ import { AttrDirComponent } from '../study/attributeDirective/attr-dir.component
 import { StruDirComponent } from '../study/structrualDirective/stru-dir.component';
 import { PipeComponent } from '../study/pipes/pipes.component';
 import { AnimationComponent } from '../study/animation/animation.component';
+import { UserInputComponent } from '../study/userInput/user-input.component';
+import { FormComponent } from '../study/forms/forms.component';
+import { FormValidationComponent } from '../study/formvalidation/form-validation.component';
 
 const routes: Routes = [
   {
@@ -57,6 +60,18 @@ const routes: Routes = [
   {
     path: 'animation',
     component: AnimationComponent
+  },
+  {
+    path: 'userInput',
+    component: UserInputComponent
+  },
+  {
+    path: 'forms',
+    component: FormComponent
+  },
+  {
+    path: 'formsvalidation',
+    component: FormValidationComponent
   },
   {
     path: '',

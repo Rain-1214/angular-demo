@@ -25,6 +25,10 @@ import { AttrDirComponent } from '../study/attributeDirective/attr-dir.component
 import { StruDirComponent } from '../study/structrualDirective/stru-dir.component';
 import { PipeComponent } from '../study/pipes/pipes.component';
 import { AnimationComponent } from '../study/animation/animation.component';
+import { AnimationTwoComponent } from '../study/animation/children/animation-two.component';
+import { UserInputComponent } from '../study/userInput/user-input.component';
+import { FormComponent } from '../study/forms/forms.component';
+import { FormValidationComponent } from '../study/formvalidation/form-validation.component';
 
 const componentArray = [
   HeroComponent,
@@ -46,6 +50,10 @@ const componentArray = [
   StruDirComponent,
   PipeComponent,
   AnimationComponent,
+  AnimationTwoComponent,
+  UserInputComponent,
+  FormComponent,
+  FormValidationComponent
 ];
 
 const directiveArray = [

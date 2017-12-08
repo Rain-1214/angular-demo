@@ -27,3 +27,15 @@ ul{
     background: #cc0;
   }
 }
+
+.three{
+  li{
+    overflow: hidden;
+    padding: 0;
+    box-sizing: border-box;
+    background: #ff6700;
+    div{
+      padding: 10px 15px;
+    }
+  }
+}

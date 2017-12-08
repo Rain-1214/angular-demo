@@ -2,6 +2,22 @@
   <h1>Animation</h1>
   <button (click) = 'regetHeroes()'>regetHeroes</button>
   <hr>
+    <app-animation-two
+      (deleteEvent) = 'delete($event)'
+      [heroes] = 'heroes'></app-animation-two>
+  <hr>
+  <div class="three">
+    <ul>
+      <li
+        [@leaveAuto]
+        *ngFor="let hero of heroes;let index = index;trackBy:trackById">
+        <div>
+          {{ hero.name }} <button (click) = 'delete(index)'>x</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <hr>
   <div class="first">
     <ul>
       <li
@@ -23,5 +39,4 @@
       </li>
     </ul>
   </div>
-
 </div>

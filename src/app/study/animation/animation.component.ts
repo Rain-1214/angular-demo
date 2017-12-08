@@ -55,6 +55,13 @@ import { Hero } from '../../heroes/shared/hero.model';
       transition('* => void', [
         animate('400ms ease-out', style({transform: 'translateX(100%)'}))
       ])
+    ]),
+    trigger('leaveAuto', [
+      state('in', style({ height: '*'})),
+      transition('* => void', [
+        style({ height: '*' }),
+        animate('400ms ease-out', style({ height: '0' }))
+      ])
     ])
   ],
 })
