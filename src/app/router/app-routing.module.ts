@@ -15,6 +15,7 @@ import { AnimationComponent } from '../study/animation/animation.component';
 import { UserInputComponent } from '../study/userInput/user-input.component';
 import { FormComponent } from '../study/forms/forms.component';
 import { FormValidationComponent } from '../study/formvalidation/form-validation.component';
+import { ReactiveFormComponent } from '../study/reactiveForm/reactive-form.component';
 
 const routes: Routes = [
   {
@@ -72,6 +73,10 @@ const routes: Routes = [
   {
     path: 'formsvalidation',
     component: FormValidationComponent
+  },
+  {
+    path: 'reactiveform',
+    component: ReactiveFormComponent
   },
   {
     path: '',

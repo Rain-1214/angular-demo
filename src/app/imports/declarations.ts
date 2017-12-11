@@ -2,6 +2,7 @@ import { SpyDirective } from '../directive/mySpy.directive';
 import { AdDirective } from '../directive/ad.directive';
 import { HightLightDirective } from '../directive/hightLight.directive';
 import { UnLessDirective } from '../directive/unless.directive';
+import { ForBiddenDirective } from '../directive/forbidden.directive';
 
 import { ExponentialStrengthPipe } from '../pipe/exponential-strength.pipe';
 import { AxiosPipe } from '../pipe/axios.pipe';
@@ -29,6 +30,7 @@ import { AnimationTwoComponent } from '../study/animation/children/animation-two
 import { UserInputComponent } from '../study/userInput/user-input.component';
 import { FormComponent } from '../study/forms/forms.component';
 import { FormValidationComponent } from '../study/formvalidation/form-validation.component';
+import { ReactiveFormComponent } from '../study/reactiveForm/reactive-form.component';
 
 const componentArray = [
   HeroComponent,
@@ -53,7 +55,8 @@ const componentArray = [
   AnimationTwoComponent,
   UserInputComponent,
   FormComponent,
-  FormValidationComponent
+  FormValidationComponent,
+  ReactiveFormComponent
 ];
 
 const directiveArray = [
@@ -61,6 +64,7 @@ const directiveArray = [
   AdDirective,
   HightLightDirective,
   UnLessDirective,
+  ForBiddenDirective
 ];
 
 const pipeArray = [
