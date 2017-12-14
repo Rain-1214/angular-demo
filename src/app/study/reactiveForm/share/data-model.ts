@@ -2,6 +2,11 @@ export class ReactiveHero {
   id = 0;
   name = '';
   addresses: Address[];
+  constructor(id, name, addresses) {
+    this.id = id;
+    this.name = name;
+    this.addresses = addresses;
+  }
 }
 
 export class Address {
@@ -35,3 +40,28 @@ export const heroes: ReactiveHero[] = [
 ];
 
 export const states = ['CA', 'MD', 'OH', 'VA'];
+
+export const saveAddress = (id: number, address: Address): string => {
+  let result = '';
+  heroes.forEach((e) => {
+    if (e.id === id) {
+      e.addresses.push(address);
+      result = JSON.stringify({
+        stateCode: 1,
+        message: 'success'
+      });
+    }
+  });
+  if (result !== '') {
+    return result;
+  } else {
+    return  JSON.stringify({
+      stateCode: 0,
+      message: '没有这个Hero'
+    });
+  }
+};
+
+export const saveHero = (hero: ReactiveHero) => {
+  heroes.push(hero);
+};

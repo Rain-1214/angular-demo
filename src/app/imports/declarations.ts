@@ -31,6 +31,9 @@ import { UserInputComponent } from '../study/userInput/user-input.component';
 import { FormComponent } from '../study/forms/forms.component';
 import { FormValidationComponent } from '../study/formvalidation/form-validation.component';
 import { ReactiveFormComponent } from '../study/reactiveForm/reactive-form.component';
+import { DynamicFormsComponent } from '../study/dynamicforms/dynamic-forms.component';
+import { QuestionWrapperComponent } from '../study/dynamicforms/children/question-wrapper.component';
+import { QuestionComponent } from '../study/dynamicforms/children/question.component';
 
 const componentArray = [
   HeroComponent,
@@ -56,7 +59,10 @@ const componentArray = [
   UserInputComponent,
   FormComponent,
   FormValidationComponent,
-  ReactiveFormComponent
+  ReactiveFormComponent,
+  DynamicFormsComponent,
+  QuestionWrapperComponent,
+  QuestionComponent,
 ];
 
 const directiveArray = [
