@@ -35,6 +35,8 @@ import { DynamicFormsComponent } from '../study/dynamicforms/dynamic-forms.compo
 import { QuestionWrapperComponent } from '../study/dynamicforms/children/question-wrapper.component';
 import { QuestionComponent } from '../study/dynamicforms/children/question.component';
 import { MyModuleComponent } from '../study/ngModule/my-module.component';
+import { ContactListComponent } from '../study/ngModule/children/contact-list.component';
+import { ContactFormComponent } from '../study/ngModule/children/contact-form.component';
 
 const componentArray = [
   HeroComponent,
@@ -64,7 +66,6 @@ const componentArray = [
   DynamicFormsComponent,
   QuestionWrapperComponent,
   QuestionComponent,
-  MyModuleComponent
 ];
 
 const directiveArray = [

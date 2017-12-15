@@ -1,0 +1,39 @@
+<div>
+  <form [formGroup]='form'>
+    <div class="form-group">
+      <label class="form-label">Name</label>
+      <input
+        class="form-control"
+        name="username"
+        formControlName = 'username'
+        [(ngModel)] = 'username'
+        required
+        type="text">
+        <div
+          [hidden] = 'name.valid || name.pristine'
+          class="alert alert-danger">
+          username is required
+        </div>
+    </div>
+    <div>
+      <button
+        [disabled] = '!name.valid'
+        (click) = 'saveContact()'
+        class="btn btn-default">
+        Save
+      </button>
+      <button
+        (click) = 'reset()'
+        class="btn btn-primary">
+        New Contact
+      </button>
+    </div>
+    <p>
+      {{form.value | json}} <br>
+      {{form.status | json}} <br>
+      {{ name.pristine }}
+      {{ name.valid }}
+      {{ name.invalid }}
+    </p>
+  </form>
+</div>
