@@ -15,8 +15,6 @@ export class HightLightDirective {
   ) {}
 
   @HostListener('mouseenter') onMouseEnter(): void {
-    console.log(typeof this.hightLightColor);
-    console.log(this.defaultColor);
     this.hightLightBackground(this.hightLightColor || this.defaultColor || 'red');
   }
 
