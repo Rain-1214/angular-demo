@@ -17,7 +17,6 @@ import { FormComponent } from '../study/forms/forms.component';
 import { FormValidationComponent } from '../study/formvalidation/form-validation.component';
 import { ReactiveFormComponent } from '../study/reactiveForm/reactive-form.component';
 import { DynamicFormsComponent } from '../study/dynamicforms/dynamic-forms.component';
-import { MyModuleComponent } from '../study/ngModule/my-module.component';
 
 const routes: Routes = [
   {
@@ -83,10 +82,6 @@ const routes: Routes = [
   {
     path: 'dynamicform',
     component: DynamicFormsComponent
-  },
-  {
-    path: 'mymodule',
-    component: MyModuleComponent
   },
   {
     path: '',
