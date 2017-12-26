@@ -16,6 +16,6 @@ export class PrivodersComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(this.carService.fly());
+        // console.log(this.carService.fly());
     }
 }
