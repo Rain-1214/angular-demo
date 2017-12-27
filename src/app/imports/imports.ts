@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MyModuleModule } from '../study/ngModule/my-module.module';
 import { ProvidersModule } from '../study/providers/providers.module';
+import { HeroListModule } from '../study/HierarchicalDependencyInjectors/hero-list.module';
 
 export const importsArray = [
   BrowserModule,
@@ -12,5 +13,6 @@ export const importsArray = [
   HttpModule,
   BrowserAnimationsModule,
   MyModuleModule,
-  ProvidersModule
+  ProvidersModule,
+  HeroListModule
 ];

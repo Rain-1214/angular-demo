@@ -1,0 +1,27 @@
+<div>
+    <h1>
+        Hero Tax Return
+    </h1>
+    <hr>
+    <ul>
+        <li (click)='showHeroTaxReturn(hero)' *ngFor="let hero of heroes">
+            {{ hero.id }} {{ hero.name }}
+        </li>
+    </ul>
+    <hr>
+    <app-hero-tax-return 
+        *ngIf="currentHeroTax"
+        [tax]='currentHeroTax'></app-hero-tax-return>
+
+    <hr>
+    <ul>
+        <li (click)='showHeroIndex.push(i)' *ngFor="let hero of heroes;let i = index">
+            {{ hero.id }} {{ hero.name }}
+        </li>
+    </ul>
+    <hr>
+    <div *ngFor="let hero of heroes;let i = index">
+        <app-hero-compile 
+            *ngIf="showHeroIndex.includes(i)"></app-hero-compile>
+    </div>
+</div>
