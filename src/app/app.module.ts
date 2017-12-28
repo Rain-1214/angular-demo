@@ -22,7 +22,6 @@ import { AdHeroProfileComponent } from './study/dynamicComponent/adDetail/ad-her
   imports: [
     ...importsArray,
     AppRoutingModule,
-    InMemoryWebApiModule.forRoot(InMemoryDataService)
   ],
   providers: [
     HeroService,
@@ -34,8 +33,6 @@ import { AdHeroProfileComponent } from './study/dynamicComponent/adDetail/ad-her
     }
   ],
   entryComponents: [
-    AdHeroJobComponent,
-    AdHeroProfileComponent
   ],
   bootstrap: [AppComponent]
 })

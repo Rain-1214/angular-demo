@@ -42,4 +42,8 @@ export class HeroService {
         });
     }
 
+    getHeroById(id: number): Hero {
+        return heroes.find(e => e.id === id);
+    }
+
 }

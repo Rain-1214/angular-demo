@@ -8,6 +8,8 @@ import { HeroTaxReturn } from './heroTaxReturn/hero-tax-return.service';
 })
 export class HeroListComponent implements OnInit {
 
+    name = 'parent';
+
     heroes: Hero[];
     currentHeroTax: HeroTaxReturn;
 
@@ -23,6 +25,17 @@ export class HeroListComponent implements OnInit {
 
     showHeroTaxReturn(hero: Hero) {
         this.currentHeroTax = hero.heroTaxReturn;
+    }
+
+    showHeroEvent(index: number): void {
+        if (!this.showHeroIndex.includes(index)) {
+            this.showHeroIndex.push(index);
+        }
+    }
+
+    closeHeroCompile(index: number): void {
+        const i = this.showHeroIndex.findIndex((e) => e === index);
+        this.showHeroIndex.splice(i, 1);
     }
 
 }

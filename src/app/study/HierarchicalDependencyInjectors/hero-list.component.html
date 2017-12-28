@@ -15,13 +15,17 @@
 
     <hr>
     <ul>
-        <li (click)='showHeroIndex.push(i)' *ngFor="let hero of heroes;let i = index">
+        <li (click)='showHeroEvent(i)' *ngFor="let hero of heroes;let i = index">
             {{ hero.id }} {{ hero.name }}
         </li>
     </ul>
     <hr>
     <div *ngFor="let hero of heroes;let i = index">
         <app-hero-compile 
+            (closeEvent)="closeHeroCompile(i)"
+            [heroId] = "hero.id"
             *ngIf="showHeroIndex.includes(i)"></app-hero-compile>
     </div>
+    <hr>
+    <app-children></app-children>
 </div>

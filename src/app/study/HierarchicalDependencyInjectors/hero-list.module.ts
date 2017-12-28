@@ -6,12 +6,14 @@ import { HeroListComponent } from './hero-list.component';
 import { HeroService } from './hero.service';
 import { HeroTaxReturnComponent } from './heroTaxReturn/hero-tax-return.component';
 import { HeroCompileComponent } from './heroCompile/hero-compile.component';
+import { ChildrenComponent } from './parent/children.component';
 
 @NgModule({
     declarations: [
         HeroListComponent,
         HeroTaxReturnComponent,
-        HeroCompileComponent
+        HeroCompileComponent,
+        ChildrenComponent
     ],
     imports: [
         CommonModule,
