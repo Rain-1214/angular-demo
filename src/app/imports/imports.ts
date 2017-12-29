@@ -7,6 +7,7 @@ import { ProvidersModule } from '../study/providers/providers.module';
 import { HeroListModule } from '../study/HierarchicalDependencyInjectors/hero-list.module';
 import { ParentModule } from '../study/parent/parent.module';
 import { MyHttpModule } from '../study/httpClient/http.module';
+import { MyHeroModule } from '../study/heroCenter/hero.module';
 
 export const importsArray = [
   BrowserModule,
@@ -18,5 +19,6 @@ export const importsArray = [
   ProvidersModule,
   HeroListModule,
   ParentModule,
-  MyHttpModule
+  MyHttpModule,
+  MyHeroModule
 ];

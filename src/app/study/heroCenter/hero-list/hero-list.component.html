@@ -1,0 +1,11 @@
+<div>
+  <ul class="children-li">
+    <li 
+      [class.active] = 'selectHeroId === hero.id'
+      [routerLink]="'/heroCenter/heroDetail/' + hero.id" 
+      *ngFor="let hero of heroes;let i = index">
+      <i>{{ i }}</i>
+      {{ hero.name }}
+    </li>
+  </ul>
+</div>

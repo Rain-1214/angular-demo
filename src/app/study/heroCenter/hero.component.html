@@ -1,0 +1,19 @@
+<div class="header">
+    <ul>
+        <li>
+            <a routerLink='/heroCenter/cirsisList' routerLinkActive='active'>Cirsis Center</a>
+        </li>
+        <li>
+            <a routerLink='/heroCenter/heroList' routerLinkActive='active'>Heroes</a>
+        </li>
+        <li>
+            <a href=""></a>
+        </li>
+        <li>
+            <a href=""></a>
+        </li>
+    </ul>
+</div>
+<div class="detail" [@routerAnimation] = 'routerStateCode'> 
+    <router-outlet></router-outlet>
+</div>
