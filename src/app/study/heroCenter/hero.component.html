@@ -1,13 +1,14 @@
 <div class="header">
     <ul>
         <li>
-            <a routerLink='/heroCenter/cirsisList' routerLinkActive='active'>Cirsis Center</a>
+            <a routerLink='/heroCenter/crisisList' routerLinkActive='active'>Crisis Center</a>
         </li>
         <li>
             <a routerLink='/heroCenter/heroList' routerLinkActive='active'>Heroes</a>
         </li>
         <li>
-            <a href=""></a>
+            <a [routerLink]='[{ outlets: { popup: ["test"]}}]'>Contact</a>
+            <a [routerLink]='[{ outlets: { popup: ["slide"]}}]'>Test</a>
         </li>
         <li>
             <a href=""></a>
@@ -16,4 +17,5 @@
 </div>
 <div class="detail" [@routerAnimation] = 'routerStateCode'> 
     <router-outlet></router-outlet>
+    <router-outlet name="popup"></router-outlet>
 </div>

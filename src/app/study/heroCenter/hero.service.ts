@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Hero, AjaxReturn } from './Hero';
-import { Observable } from '../../../../node_modules/_rxjs@5.5.5@rxjs/Observable';
-
-import 'rxjs/add/Observable/of';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class HeroService {
@@ -14,7 +12,7 @@ export class HeroService {
         private http: HttpClient
     ) {}
 
-    getHeroes(): Observable<Hero[] | void> {
+    getHeroes(): Observable<Hero[]> {
         if (!this.heroes) {
             return this.http.get('/test/getHeroes.do').map((res: AjaxReturn) => {
                 if (res.stateCode) {
@@ -27,7 +25,7 @@ export class HeroService {
         return Observable.of(this.heroes);
     }
 
-    getHeroById(id: number): Observable<Hero | void> {
+    getHeroById(id: number): Observable<Hero> {
         if (!this.heroes) {
             return this.http.get('/test/getHeroes.do').map((res: AjaxReturn) => {
                 if (res.stateCode) {

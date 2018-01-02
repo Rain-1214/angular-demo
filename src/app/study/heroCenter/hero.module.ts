@@ -8,13 +8,19 @@ import { HeroService } from './hero.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 import { CrisisCenterComponent } from './crisis-center/crisis-center.component';
+import { CrisisDetailComponent } from './crisis-center/crisis-detail/crisis-detail.component';
+import { SlideComponent } from './slide/slide.component';
+import { TestComponent } from './Test/Test.component';
 
 @NgModule({
     declarations: [
         HeroComponent,
         HeroListComponent,
         HeroDetailComponent,
-        CrisisCenterComponent
+        CrisisCenterComponent,
+        CrisisDetailComponent,
+        SlideComponent,
+        TestComponent
     ],
     imports: [
         CommonModule,

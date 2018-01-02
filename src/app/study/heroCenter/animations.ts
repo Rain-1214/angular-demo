@@ -5,7 +5,7 @@ import { AnimationEntryMetadata } from '@angular/core';
 export const routerAnimation: AnimationEntryMetadata = trigger('routerAnimation', [
     state('*', style({
         opacity: 1,
-        transform: 'translateX(0)'
+        transform: 'translateX(0)',
     })),
     transition('* => *', [
         query(':leave', style({ transform: 'translateY(0)', position: 'absolute' , opacity: 1}), { optional: true }),

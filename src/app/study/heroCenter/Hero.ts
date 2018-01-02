@@ -5,6 +5,7 @@ export class Hero {
 }
 
 export class AjaxReturn {
-    result: any;
+    result?: any;
     stateCode: number;
+    message?: string;
 }
