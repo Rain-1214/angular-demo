@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeroComponent } from './hero.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeroRouterModule } from './hero-router.module';
 import { HeroListComponent } from './hero-list/hero-list.component';
 import { HeroService } from './hero.service';
@@ -10,7 +10,9 @@ import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 import { CrisisCenterComponent } from './crisis-center/crisis-center.component';
 import { CrisisDetailComponent } from './crisis-center/crisis-detail/crisis-detail.component';
 import { SlideComponent } from './slide/slide.component';
-import { TestComponent } from './Test/Test.component';
+import { AdminModule } from './admin/admin.module';
+import { LoginComponent } from './login/login.component';
+import { AuthService } from './admin/auth.service';
 
 @NgModule({
     declarations: [
@@ -20,17 +22,19 @@ import { TestComponent } from './Test/Test.component';
         CrisisCenterComponent,
         CrisisDetailComponent,
         SlideComponent,
-        TestComponent
+        LoginComponent
     ],
     imports: [
         CommonModule,
         FormsModule,
+        ReactiveFormsModule,
         HttpClientModule,
-        HeroRouterModule
+        AdminModule,
+        HeroRouterModule,
     ],
     exports: [
         HeroComponent
     ],
-    providers: [ HeroService ],
+    providers: [ HeroService, AuthService ],
 })
 export class MyHeroModule {}

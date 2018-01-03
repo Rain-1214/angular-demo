@@ -7,11 +7,14 @@
             <a routerLink='/heroCenter/heroList' routerLinkActive='active'>Heroes</a>
         </li>
         <li>
-            <a [routerLink]='[{ outlets: { popup: ["test"]}}]'>Contact</a>
-            <a [routerLink]='[{ outlets: { popup: ["slide"]}}]'>Test</a>
+            <a [routerLink]='[{ outlets: { popup: ["slide"]}}]'>Contact</a>
+            <!-- <a [routerLink]='[{ outlets: { popup: null}}]'>Contact</a> -->
         </li>
         <li>
-            <a href=""></a>
+            <a routerLink='/heroCenter/admin' routerLinkActive='active'>Admin</a>
+        </li>
+        <li>
+            <a routerLink='/heroCenter/login' routerLinkActive='active'>login</a>
         </li>
     </ul>
 </div>

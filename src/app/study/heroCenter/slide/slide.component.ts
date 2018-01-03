@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-slide',
@@ -12,11 +12,10 @@ export class SlideComponent implements OnInit {
   sending = false;
 
   constructor(
-    private router: Router
+    private router: Router,
   ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   send(): void {
     this.sending = true;
@@ -34,7 +33,12 @@ export class SlideComponent implements OnInit {
 
 
   close(): void {
-    this.router.navigate([{ outlets: { popup: null }}]);
+    // this.router.navigate([{ outlets: { popup: null}}]); 我并不知道什么原因导致其不能关闭命名路由
+    const url = this.router.url;
+    const spliceIndex = url.indexOf('//') === -1 ? url.indexOf('(') - 1 : url.indexOf('//');
+    const suffix = url.indexOf('//') === -1 ? '' : ')';
+    const nextUrl = url.slice(0, spliceIndex) + suffix;
+    this.router.navigateByUrl(nextUrl);
   }
 
 }

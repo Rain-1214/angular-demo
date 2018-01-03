@@ -1,0 +1,29 @@
+<div class="login">
+  <h1>{{ isLogin ? 'Logout' : 'Login' }}</h1>
+  <hr>
+  <ng-container *ngIf="isLogin; else elseTemplate">
+    <button (click)='logout()' class="btn btn-warning">Logout</button>   
+  </ng-container>
+  <ng-template #elseTemplate>
+    <form #myform='ngForm' ngif>
+      <div class="form-group">
+        <label>username</label>
+        <input type="text" name="username" [(ngModel)]='username' class="form-control">
+      </div>
+      <div>
+        <label>password</label>
+        <input type="password" name="password" [(ngModel)]='password' class="form-control">
+      </div>
+      <hr>
+      <div>
+        <button (click)='login()' class="btn btn-success">
+          Login
+        </button>
+        <button (click)="myform.reset()" class="btn btn-info">
+          reset
+        </button>
+      </div>
+    </form> 
+  </ng-template>
+  
+</div>
