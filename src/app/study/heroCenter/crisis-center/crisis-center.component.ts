@@ -6,7 +6,6 @@ import { Crisis } from './crisis';
   selector: 'app-crisis-center',
   templateUrl: './crisis-center.component.html',
   styleUrls: ['./crisis-center.component.scss'],
-  providers: [ CrisisService ]
 })
 export class CrisisCenterComponent implements OnInit {
 

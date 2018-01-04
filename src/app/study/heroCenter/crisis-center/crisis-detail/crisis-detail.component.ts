@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CrisisService } from '../crisis.service';
 import { Crisis } from '../crisis';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { DialogService } from '../../dialog.service';
 
 import 'rxjs/add/operator/switchMap';
 
@@ -18,16 +20,25 @@ export class CrisisDetailComponent implements OnInit {
   constructor(
     private crisisService: CrisisService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    public dialogService: DialogService
   ) { }
 
   ngOnInit() {
+    // this.route
+    //     .paramMap
+    //     .switchMap((res: ParamMap) => this.crisisService.getCrisesById(+res.get('id')))
+    //     .subscribe((crisis: Crisis) => {
+    //       this.crisis = crisis;
+    //       this.tempName = this.crisis.name;
+    //     });
+
     this.route
-        .paramMap
-        .switchMap((res: ParamMap) => this.crisisService.getCrisesById(+res.get('id')))
-        .subscribe((crisis: Crisis) => {
-          this.crisis = crisis;
-          this.tempName = this.crisis.name;
+        .data
+        .subscribe((res: { crisis: Crisis }) => {
+          console.log(res);
+          this.tempName = res.crisis.name;
+          this.crisis = res.crisis;
         });
   }
 
@@ -38,6 +49,14 @@ export class CrisisDetailComponent implements OnInit {
 
   back(): void {
     this.router.navigate(['/heroCenter/crisisList']);
+  }
+
+  canDeactivate(): Observable<boolean> | boolean {
+    if (!this.crisis || this.tempName === this.crisis.name) {
+      return true;
+    }
+
+    return this.dialogService.confirm(`Discard Changes?`);
   }
 
 }

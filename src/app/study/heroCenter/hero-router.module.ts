@@ -8,6 +8,8 @@ import { CrisisDetailComponent } from './crisis-center/crisis-detail/crisis-deta
 import { SlideComponent } from './slide/slide.component';
 import { LoginComponent } from './login/login.component';
 import { AuthguardService } from './admin/authguard.service';
+import { CanDeactivateGuardService } from './can-deactivate-guard.service';
+import { CrisisDetailResolverService } from './crisis-center/crisis-detail-resolver.service';
 
 const routes: Routes = [
     {
@@ -37,14 +39,18 @@ const routes: Routes = [
                 children: [
                     {
                         path: 'crisisDetail/:id',
-                        component: CrisisDetailComponent
+                        component: CrisisDetailComponent,
+                        canDeactivate: [ CanDeactivateGuardService ],
+                        resolve: {
+                            crisis: CrisisDetailResolverService
+                        }
                     }
                 ]
             },
             {
                 path: 'admin',
                 loadChildren: 'app/study/heroCenter/admin/admin.module#AdminModule',
-                canActivate: [ AuthguardService ],
+                canLoad: [ AuthguardService ],
             },
             {
                 path: 'login',

@@ -18,6 +18,7 @@ import { FormValidationComponent } from '../study/formvalidation/form-validation
 import { ReactiveFormComponent } from '../study/reactiveForm/reactive-form.component';
 import { DynamicFormsComponent } from '../study/dynamicforms/dynamic-forms.component';
 import { SlideComponent } from '../study/heroCenter/slide/slide.component';
+import { PreloadAllModules } from '@angular/router';
 
 const routes: Routes = [
   {
@@ -96,7 +97,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
+  imports: [ RouterModule.forRoot(
+    routes,
+    {
+      preloadingStrategy: PreloadAllModules
+    }
+  ) ],
   exports: [ RouterModule ]
 })
 export class AppRoutingModule {}

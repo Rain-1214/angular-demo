@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../admin/auth.service';
 import { Router } from '@angular/router';
+import { NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -26,8 +27,14 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.username, this.password).subscribe(res => {
       if (res) {
         if (this.authService.redirect) {
-          console.log(this.authService);
-          this.router.navigate([this.authService.redirect]);
+          console.log(this.authService.redirect);
+
+          const navigationExtra: NavigationExtras = {
+            queryParamsHandling: 'preserve',
+            preserveFragment: true
+          };
+
+          this.router.navigate([this.authService.redirect], navigationExtra);
         }
         this.refreshIsLogin();
       }

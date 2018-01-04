@@ -10,9 +10,14 @@ import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 import { CrisisCenterComponent } from './crisis-center/crisis-center.component';
 import { CrisisDetailComponent } from './crisis-center/crisis-detail/crisis-detail.component';
 import { SlideComponent } from './slide/slide.component';
-import { AdminModule } from './admin/admin.module';
 import { LoginComponent } from './login/login.component';
 import { AuthService } from './admin/auth.service';
+import { DialogService } from './dialog.service';
+import { CanDeactivateGuardService } from './can-deactivate-guard.service';
+import { CrisisDetailResolverService } from './crisis-center/crisis-detail-resolver.service';
+import { CrisisService } from './crisis-center/crisis.service';
+import { SelectivePreloadingStrategy } from './admin/dashboard/selective-preloading-strategy';
+import { AuthguardService } from './admin/authguard.service';
 
 @NgModule({
     declarations: [
@@ -29,12 +34,20 @@ import { AuthService } from './admin/auth.service';
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
-        AdminModule,
         HeroRouterModule,
     ],
     exports: [
         HeroComponent
     ],
-    providers: [ HeroService, AuthService ],
+    providers: [
+        HeroService,
+        AuthService,
+        DialogService,
+        AuthguardService,
+        CanDeactivateGuardService,
+        CrisisService,
+        CrisisDetailResolverService,
+        SelectivePreloadingStrategy
+    ],
 })
 export class MyHeroModule {}

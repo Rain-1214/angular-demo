@@ -22,7 +22,6 @@ export class HeroComponent implements OnInit {
     ngOnInit() {
         this.router.events.subscribe(event => {
             if (event instanceof NavigationEnd) {
-                console.log(1);
                 this.routerState = !this.routerState;
                 this.routerStateCode = this.routerState ? 'active' : 'inactive';
             }
