@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
-import { PreloadingStrategy } from '../../../../../../node_modules/_@angular_router@5.1.1@@angular/router/src/router_preloader';
+import { PreloadingStrategy } from '@angular/router';
 import { SelectivePreloadingStrategy } from './selective-preloading-strategy';
 
 @Component({

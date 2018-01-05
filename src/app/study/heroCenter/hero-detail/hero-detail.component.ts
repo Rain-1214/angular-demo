@@ -3,7 +3,7 @@ import { Hero } from '../Hero';
 import { HeroService } from '../hero.service';
 import { ActivatedRoute, ParamMap, Route, Router } from '@angular/router';
 
-import { Observable } from '../../../../../node_modules/_rxjs@5.5.5@rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/Observable/of';
 
