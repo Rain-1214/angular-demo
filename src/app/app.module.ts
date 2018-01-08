@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './router/app-routing.module';
 
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService } from './api/in-memory-data.module';
+// import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+// import { InMemoryDataService } from './api/in-memory-data.module';
 
 import { importsArray } from './imports/imports';
 import { declarationsArray } from './imports/declarations';
