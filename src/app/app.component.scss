@@ -1,28 +1,32 @@
-h1 {
-  font-size: 1.2em;
-  color: #999;
-  margin-bottom: 0;
-}
-h2 {
-  font-size: 2em;
-  margin-top: 0;
-  padding-top: 0;
-}
-nav a {
-  padding: 5px 10px;
-  text-decoration: none;
-  margin-top: 10px;
-  display: inline-block;
-  background-color: #eee;
-  border-radius: 4px;
-}
-nav a:visited, a:link {
-  color: #607D8B;
-}
-nav a:hover {
-  color: #039be5;
-  background-color: #CFD8DC;
-}
-nav a.active {
-  color: #039be5;
+@import "../assets/sass/_mixin.scss";
+
+.login{
+    width: 100vw;
+    height: 100vh;
+    background-color: #108ee9;
+    .center{
+        width: 420px;
+        border-radius: 4px;
+        padding: 15px;
+        background: #fff;
+        @include all-center(absolute);
+        h1{
+            margin-bottom: 10px;
+        }
+        .login-form {
+            max-width: 420px;
+        }
+    
+        .login-form-forgot {
+            float: right;
+        }
+        .ant-form-item{
+            &:last-child{
+                margin-bottom: 0;
+            }
+        }
+        .login-form-button {
+            width: 100%;
+        }
+    }
 }
