@@ -1,26 +1,22 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CommonModule } from '@angular/common';
-import { NgZorroAntdModule } from 'ng-zorro-antd';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
+import { AppRoutes } from './app.routing';
+import { RouterModule } from '@angular/router';
+
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule,
     CommonModule,
-    FormsModule,
-    HttpClientModule,
-    ReactiveFormsModule,
+    BrowserModule,
     BrowserAnimationsModule,
-    NgZorroAntdModule.forRoot()
-  ],
-  providers: [
+    RouterModule,
+    AppRoutes,
   ],
   bootstrap: [AppComponent]
 })

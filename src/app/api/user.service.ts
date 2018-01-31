@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
-import { ParamMap } from '@angular/router/src/shared';
+import { AjaxReturn } from '../entity/AjaxReturn';
 
 @Injectable()
 export class UserService {
@@ -10,10 +10,12 @@ export class UserService {
         private http: HttpClient
     ) { }
 
-    checkUsername(username: string): Observable<boolean> {
-        return this.http.post('/user/checkUsername', { username }).map((res: ParamMap) => {
-            return res;
-        });
+    checkUsername(username: string): Observable<AjaxReturn> {
+        return this.http.post<AjaxReturn>('/user/checkUsername', { username });
+    }
+
+    login(username: string, password: string): Observable<AjaxReturn> {
+        return this.http.post<AjaxReturn>('/user/login', { username, password });
     }
 
 }
