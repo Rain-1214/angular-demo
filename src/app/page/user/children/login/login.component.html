@@ -1,4 +1,4 @@
-<div class="login">
+<div class="center-wrapper">
   <div class="center">
     <h1 class="text-center">学生信息管理</h1>
     <nz-alert [nzType]="'error'" [hidden] = "errorMessage == ''">
@@ -33,7 +33,7 @@
           <a class="login-form-forgot" class="login-form-forgot">Forgot password</a>
           <button nz-button class="login-form-button" [nzType]="'primary'" [nzSize]="'large'">Log in</button>
           Or
-          <a href="">register now!</a>
+          <a routerLink='/user/register'>register now!</a>
         </div>
       </div>
     </form>

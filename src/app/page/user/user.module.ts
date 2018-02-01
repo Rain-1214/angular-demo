@@ -6,6 +6,7 @@ import { LoginComponent } from './children/login/login.component';
 import { UserService } from '../../api/user.service';
 import { UserRoutes } from './user.routing';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
+import { RegisterComponent } from './children/register/register.component';
 import { UserComponent } from './user.component';
 
 @NgModule({
@@ -19,7 +20,8 @@ import { UserComponent } from './user.component';
   ],
   declarations: [
     UserComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ]
 })
 export class UserModule { }
