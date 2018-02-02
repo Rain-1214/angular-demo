@@ -18,7 +18,7 @@ export class UserService {
         return this.http.post<AjaxReturn>('/api/user/getEmailCode', { email });
     }
 
-    login(username: string, password: string): Observable<AjaxReturn> {
+    login(username: string, password: string) {
         return this.http.post<AjaxReturn>('/api/user/login', { username, password });
     }
 
@@ -26,4 +26,15 @@ export class UserService {
         return this.http.put<AjaxReturn>('/api/user/register', user);
     }
 
+    forgetPassword(username: string) {
+        return this.http.post<AjaxReturn>('/api/user/forgetPass', { username });
+    }
+
+    checkForgetPassCode(code: string) {
+        return this.http.post<AjaxReturn>('/api/user/checkForgetPassCode', { code });
+    }
+
+    setNewPassword(password: string) {
+        return this.http.post<AjaxReturn>('/api/user/setNewPass', { password });
+    }
 }

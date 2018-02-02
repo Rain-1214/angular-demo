@@ -1,0 +1,40 @@
+@import './assets/sass/_mixin.scss';
+
+.center-wrapper{
+    width: 100vw;
+    height: 100vh;
+    background-color: #108ee9;
+    .center{
+        width: 420px;
+        border-radius: 4px;
+        padding: 15px;
+        background: #fff;
+        @include all-center(absolute);
+        h1{
+            margin-bottom: 20px;
+        }
+        .login-form {
+            max-width: 420px;
+        }
+    
+        .login-form-forgot {
+            float: right;
+        }
+        .ant-form-item{
+            &:last-child{
+                margin-bottom: 0;
+            }
+        }
+        .login-form-button {
+            width: 100%;
+        }
+    }
+}
+
+.set-distance{
+    margin-bottom: 10px;
+}
+
+.set-position{
+    position: relative;
+}

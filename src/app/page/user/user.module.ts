@@ -8,6 +8,7 @@ import { UserRoutes } from './user.routing';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { RegisterComponent } from './children/register/register.component';
 import { UserComponent } from './user.component';
+import { ForgetPasswordComponent } from './children/forget-password/forget-password.component';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { UserComponent } from './user.component';
   declarations: [
     UserComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ForgetPasswordComponent,
   ]
 })
 export class UserModule { }
