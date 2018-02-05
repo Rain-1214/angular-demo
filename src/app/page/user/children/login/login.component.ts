@@ -31,7 +31,6 @@ export class LoginComponent implements OnInit {
     if (this.validateForm.valid) {
       this.errorMessage = '';
       const { username, password } = this.validateForm.value;
-      console.log(this.validateForm.value);
       this.userService.login(username, password).subscribe(res => {
         if (res.stateCode === 1) {
           this.route.navigate(['/student']);

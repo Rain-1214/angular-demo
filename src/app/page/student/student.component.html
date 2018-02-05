@@ -1,3 +1,37 @@
-<p>
-  student works!
-</p>
+<div class="student">
+  <app-header [username]="'ace'" [userRole]="'游客'"></app-header>
+  <div nz-row class="grade-wrapper" [nzGutter] ="20">
+    <div nz-col [nzSpan]="6">
+      <nz-select class="set-block" [(ngModel)]="selectGrade" [nzPlaceHolder]="'选择年级'" nzAllowClear>
+        <nz-option
+          *ngFor="let grade of gradeArray"
+          [nzLabel]="grade.gradeName"
+          [nzValue]="grade">
+        </nz-option>
+      </nz-select>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <nz-select class="set-block" [(ngModel)]="selectClass" [nzPlaceHolder]="'选择班级'" nzAllowClear>
+        <nz-option
+          *ngFor="let class of classArray"
+          [nzLabel]="class.className"
+          [nzValue]="class">
+        </nz-option>
+      </nz-select>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <button nz-button (click)="findStudnet()" [nzType]="'primary'" [nzSize]="'large'">查找</button>
+      <button nz-button (click)="loadStudent(1)" [nzType]="'primary'" [nzSize]="'large'">获取所有学生</button>
+    </div>
+    <div nz-col [nzSpan]="24" *ngIf="currentPath">
+      当前班级: <span> {{ currentPath }} </span>
+    </div>
+  </div>
+  <div class="student-wrapper grade-wrapper" nz-row [nzGutter]="15" *ngIf="gradeArray">
+    <app-student-wrapper nz-col [nzSpan]="8" *ngFor="let student of students" [student]="student"></app-student-wrapper>
+    <nz-spin [nzTip]="'正在读取数据...'" [class.hidden]="!loadStudentFlag"></nz-spin>
+  </div>
+  <div class="grade-wrapper">
+    <nz-pagination class="pull-right" [nzPageIndex]="2" [nzTotal]="studentCountNum"></nz-pagination>
+  </div>
+</div>

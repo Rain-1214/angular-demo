@@ -4,6 +4,7 @@ import { NzNotificationService, NzMessageService } from 'ng-zorro-antd';
 
 import { UserService } from '../../../../api/user.service';
 import { Router } from '@angular/router';
+import { clearInterval, setTimeout } from 'timers';
 
 @Component({
   selector: 'app-forget-password',
@@ -17,8 +18,6 @@ export class ForgetPasswordComponent implements OnInit {
 
   stepFlag = 0;
   buttonLoad = false;
-
-  successMessageText = '修改成功,3s后跳转到登录页面';
 
   constructor(
     private fb: FormBuilder,
@@ -79,24 +78,15 @@ export class ForgetPasswordComponent implements OnInit {
       this.buttonLoad = true;
       this.userService.setNewPassword(password.value).subscribe(res => {
         if (res.stateCode === 1) {
-          this.nzMessageService.create('success', this.successMessageText);
-          this.refreshSuccessMessageTest();
+          this.nzMessageService.create('success', '修改成功,3s后跳转到登录页面');
+          setTimeout(() => {
+            this.router.navigate(['/user/login']);
+          }, 3000);
         } else {
           this.nzNotificationService.create('error', '有一个问题', res.message);
         }
       });
     }
-  }
-
-  refreshSuccessMessageTest() {
-    let second = 3;
-    const setIntervalId = setInterval(() => {
-      if (second <= 0) {
-        this.router.navigate(['/user/login']);
-      } else {
-        this.successMessageText = `修改成功,${second--}s后跳转到登录页面`;
-      }
-    }, 1000);
   }
 
   confirmPassword = (control: FormControl): { [key: string]: any } => {

@@ -31,10 +31,18 @@
     }
 }
 
+.ant-spin{
+    position: absolute !important;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 80px 0;
+}
+
 .set-distance{
     margin-bottom: 10px;
 }
 
-.set-position{
-    position: relative;
+.set-block{
+    display: block !important;
 }

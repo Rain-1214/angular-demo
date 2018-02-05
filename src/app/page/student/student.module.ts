@@ -4,6 +4,9 @@ import { StudentComponent } from './student.component';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { StudentRoutes } from './student.routing';
 import { SharedModule } from '../../shared/shared.module';
+import { HeaderComponent } from '../../common/header/header.component';
+import { StudentService } from '../../api/student.service';
+import { StudentWrapperComponent } from '../../common/student-wrapper/student-wrapper.component';
 
 @NgModule({
   imports: [
@@ -11,6 +14,13 @@ import { SharedModule } from '../../shared/shared.module';
     StudentRoutes,
     NgZorroAntdModule.forRoot(),
   ],
-  declarations: [StudentComponent]
+  providers: [
+    StudentService
+  ],
+  declarations: [
+    StudentComponent,
+    HeaderComponent,
+    StudentWrapperComponent
+  ]
 })
 export class StudentModule { }

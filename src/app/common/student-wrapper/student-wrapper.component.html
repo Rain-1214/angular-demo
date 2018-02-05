@@ -1,0 +1,26 @@
+<div class="wrapper" nz-row>
+    <div nz-col [nzSpan]="8">
+        姓名:
+    </div>
+    <div nz-col [nzSpan]="16">
+        {{ student.name }}
+    </div>
+    <div nz-col [nzSpan]="8">
+        性别:
+    </div>
+    <div nz-col [nzSpan]="16">
+        {{ student.sex === 1 ? "男" : "女" }}
+    </div>
+    <div nz-col [nzSpan]="8">
+        学号:
+    </div>
+    <div nz-col [nzSpan]="16">
+        {{ student.studentNumber }}
+    </div>
+    <div nz-col [nzSpan]="8">
+        班级：
+    </div>
+    <div nz-col [nzSpan]="16">
+        {{ computeGrade() }}
+    </div>
+</div>
