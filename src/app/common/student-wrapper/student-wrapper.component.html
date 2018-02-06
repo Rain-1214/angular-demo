@@ -1,26 +1,50 @@
 <div class="wrapper" nz-row>
-    <div nz-col [nzSpan]="8">
+    <div nz-col [nzSpan]="6">
         姓名:
     </div>
-    <div nz-col [nzSpan]="16">
-        {{ student.name }}
+    <div nz-col [nzSpan]="18">
+        <span *ngIf="!updateFlag">{{ student.name }}</span>
+        <nz-input *ngIf="updateFlag" [(ngModel)]="student.name" name="student.name" [nzPlaceHolder]="'name'" [nzSize]="'small'"></nz-input>
     </div>
-    <div nz-col [nzSpan]="8">
+    <div nz-col [nzSpan]="6">
         性别:
     </div>
-    <div nz-col [nzSpan]="16">
+    <div nz-col [nzSpan]="18">
         {{ student.sex === 1 ? "男" : "女" }}
+        <nz-select class="set-block" [(ngModel)]="student.sex" [nzPlaceHolder]="'choose option'">
+            <nz-option [nzLabel]="'男'" [nzValue]="1"></nz-option>
+            <nz-option [nzLabel]="'女'" [nzValue]="2"></nz-option>
+        </nz-select>
     </div>
-    <div nz-col [nzSpan]="8">
+    <div nz-col [nzSpan]="6">
         学号:
     </div>
-    <div nz-col [nzSpan]="16">
+    <div nz-col [nzSpan]="18">
         {{ student.studentNumber }}
+        <nz-input *ngIf="updateFlag" [(ngModel)]="student.studentNumber" name="student.studentNumber" [nzPlaceHolder]="'studentNumber'" [nzSize]="'small'"></nz-input>
     </div>
-    <div nz-col [nzSpan]="8">
+    <div nz-col [nzSpan]="6">
         班级：
     </div>
-    <div nz-col [nzSpan]="16">
+    <div nz-col [nzSpan]="18" *ngIf="studentService.gradeArray">
         {{ computeGrade() }}
+        <div nz-row [nzGutter]="5">
+            <div nz-col [nzSpan]="12">
+                <nz-select class="set-block" [(ngModel)]="student.sex" [nzPlaceHolder]="'choose option'">
+                    <nz-option [nzLabel]="'男'" [nzValue]="1"></nz-option>
+                    <nz-option [nzLabel]="'女'" [nzValue]="2"></nz-option>
+                </nz-select>
+            </div>
+            <div nz-col [nzSpan]="12">
+                <nz-select class="set-block" [(ngModel)]="student.sex" [nzPlaceHolder]="'choose option'">
+                    <nz-option [nzLabel]="'男'" [nzValue]="1"></nz-option>
+                    <nz-option [nzLabel]="'女'" [nzValue]="2"></nz-option>
+                </nz-select>
+            </div>
+        </div>
     </div>
+    <div nz-col [nzSpan]="24">
+        <button nz-button (click)="update()" [nzType]="'primary'" [nzSize]="'small'">修改</button>
+        <button nz-button (click)="delete()" [nzType]="'danger'" [nzSize]="'small'">删除</button>
+    </div>	
 </div>

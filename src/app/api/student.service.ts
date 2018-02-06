@@ -1,9 +1,18 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { AjaxReturn } from '../entity/AjaxReturn';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Grade } from '../entity/grade';
 import { NzNotificationService } from 'ng-zorro-antd';
+import { Student } from '../entity/student';
+
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/observable/of';
+
+interface StusAndCountNum {
+    students: Student[];
+    countNum: number;
+}
 
 @Injectable()
 export class StudentService {
@@ -12,18 +21,33 @@ export class StudentService {
 
     constructor(
         private http: HttpClient,
+        private nzNotificationService: NzNotificationService,
     ) { }
 
-    getGradeAndClass(): Observable<AjaxReturn> {
-        return this.http.get<AjaxReturn>('/api/student/getGrade');
+    getGradeAndClass(): Observable<Grade[] | void> {
+        return this.http.get('/api/student/getGrade').switchMap((res: AjaxReturn) => {
+            return this.returnData(res);
+        });
     }
 
-    getStudentByGidCid(gradeId: number, classId: number): Observable<AjaxReturn> {
-        return this.http.post<AjaxReturn>('/api/student/getStuBygidcid', { gradeId, classId });
+    getStudentByGidCid(gradeId: number, classId: number): Observable<Student[] | void> {
+        return this.http.post('/api/student/getStuBygidcid', { gradeId, classId }).switchMap((res: AjaxReturn) => {
+            return this.returnData(res);
+        });
     }
 
-    getStudent(page: number): Observable<AjaxReturn> {
-        return this.http.get<AjaxReturn>('/api/student/getStudent', { params: { page: `${page}` } });
+    getStudent(page: number): Observable<StusAndCountNum | void> {
+        return this.http.get('/api/student/getStudent', { params: { page: `${page}` } }).switchMap((res: AjaxReturn) => {
+            return this.returnData(res);
+        });
+    }
+
+    private returnData(result: AjaxReturn) {
+        if (result.stateCode === 1) {
+            return Observable.of(result.data);
+        } else {
+            this.nzNotificationService.create('error', '有一个错误', result.message);
+        }
     }
 
 }

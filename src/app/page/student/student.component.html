@@ -21,17 +21,26 @@
     </div>
     <div nz-col [nzSpan]="12">
       <button nz-button (click)="findStudnet()" [nzType]="'primary'" [nzSize]="'large'">查找</button>
-      <button nz-button (click)="loadStudent(1)" [nzType]="'primary'" [nzSize]="'large'">获取所有学生</button>
+      <button nz-button (click)="currentPageIndex = 1" [nzType]="'primary'" [nzSize]="'large'" [disabled]="!currentPath">获取所有学生</button>
     </div>
     <div nz-col [nzSpan]="24" *ngIf="currentPath">
       当前班级: <span> {{ currentPath }} </span>
     </div>
   </div>
-  <div class="student-wrapper grade-wrapper" nz-row [nzGutter]="15" *ngIf="gradeArray">
+  <div class="student-wrapper grade-wrapper" nz-row [nzGutter]="15" *ngIf="students">
     <app-student-wrapper nz-col [nzSpan]="8" *ngFor="let student of students" [student]="student"></app-student-wrapper>
     <nz-spin [nzTip]="'正在读取数据...'" [class.hidden]="!loadStudentFlag"></nz-spin>
   </div>
-  <div class="grade-wrapper">
-    <nz-pagination class="pull-right" [nzPageIndex]="2" [nzTotal]="studentCountNum"></nz-pagination>
+  <div class="grade-wrapper" *ngIf="!currentPath">
+    <nz-pagination class="pull-right" [(nzPageIndex)]="currentPageIndex" [(nzTotal)]="studentCountNum"></nz-pagination>
+  </div>
+  <hr>
+  <div>
+    <button nz-button (click)="closeWs()" [nzType]="'primary'" [nzSize]="'large'">关闭WebSocket</button>
+    <hr>
+    <img [src]="imgUrl" alt="">
+    <hr>
+    <nz-input (keydown)='send($event)' [(ngModel)]="code" name="code" [nzPlaceHolder]="''" [nzSize]="'large'"></nz-input>
+
   </div>
 </div>

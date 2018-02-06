@@ -11,6 +11,8 @@ export class StudentWrapperComponent implements OnInit {
 
   @Input() student: Student;
 
+  updateFlag = true;
+
   constructor(
     private studentService: StudentService
   ) { }
@@ -30,7 +32,7 @@ export class StudentWrapperComponent implements OnInit {
         });
       }
     });
-    return `${gradeName}/${className}`;
+    return `${gradeName}${className}`;
   }
 
 }

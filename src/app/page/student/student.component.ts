@@ -23,9 +23,17 @@ export class StudentComponent implements OnInit {
   currentPath: string;
 
   students: Student[];
-  _studentCountNum: number;
+  studentCountNum: number;
 
+  _currentPageIndex = 1;
   loadStudentFlag = false;
+
+
+  // =======
+  ws: WebSocket;
+  imgUrl: string;
+  code: string;
+  // ========
 
   set selectGrade(value: Grade) {
     this._selectGrade = value;
@@ -37,12 +45,13 @@ export class StudentComponent implements OnInit {
     return this._selectGrade;
   }
 
-  set studentCountNum(value) {
-    this._studentCountNum = value;
+  set currentPageIndex(value) {
+    this._currentPageIndex = value;
+    this.loadStudent(this.currentPageIndex);
   }
 
-  get studentCountNum() {
-    return this._studentCountNum;
+  get currentPageIndex() {
+    return this._currentPageIndex;
   }
 
   constructor(
@@ -53,15 +62,14 @@ export class StudentComponent implements OnInit {
   ngOnInit() {
     this.loadGrade();
     this.loadStudent(1);
+    this.creatWs();
   }
 
   async loadGrade() {
     const res = await this.studentService.getGradeAndClass().toPromise();
-    if (res.stateCode === 1) {
-      this.gradeArray = res.data;
+    if (res) {
+      this.gradeArray = res;
       this.studentService.gradeArray = this.gradeArray;
-    } else {
-      this.nzNotificationService.create('error', '有一个错误', res.message);
     }
   }
 
@@ -71,11 +79,9 @@ export class StudentComponent implements OnInit {
     this.selectClass = null;
     this.currentPath = null;
     this.studentService.getStudent(page).subscribe(res => {
-      if (res.stateCode === 1) {
-        this.students = res.data.students;
-        this.studentCountNum = res.data.countNum;
-      } else {
-        this.nzNotificationService.create('error', '有一个错误', res.message);
+      if (res) {
+        this.students = res.students;
+        this.studentCountNum = res.countNum;
       }
       this.loadStudentFlag = false;
     });
@@ -95,13 +101,45 @@ export class StudentComponent implements OnInit {
     const gradeId = this.selectGrade.id;
     const classId = this.selectClass.id;
     this.studentService.getStudentByGidCid(gradeId, classId).subscribe(res => {
-      if (res.stateCode === 1) {
-        this.students = res.data;
-      } else {
-        this.nzNotificationService.create('error', '有一个错误', res.message);
+      if (res) {
+        this.students = res;
       }
       this.loadStudentFlag = false;
     });
+  }
+
+
+  // -------------------------------------------
+
+
+  creatWs() {
+    const ws = new WebSocket('ws://localhost:7200');
+    this.ws = ws;
+
+    ws.onopen = (event) => {
+      console.log('链接成功');
+    };
+
+    ws.onmessage = (event) => {
+      console.log(event.data);
+      this.imgUrl = JSON.parse(event.data).imgUrl;
+
+    };
+
+    ws.onclose = () => {
+      console.log('Ws已经关闭');
+    };
+  }
+
+  closeWs() {
+    this.ws.close();
+  }
+
+  send(event) {
+    console.log(event);
+    if (event.code === 'Enter') {
+      this.ws.send(this.code);
+    }
   }
 
 }

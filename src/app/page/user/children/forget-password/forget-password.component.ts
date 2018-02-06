@@ -4,7 +4,6 @@ import { NzNotificationService, NzMessageService } from 'ng-zorro-antd';
 
 import { UserService } from '../../../../api/user.service';
 import { Router } from '@angular/router';
-import { clearInterval, setTimeout } from 'timers';
 
 @Component({
   selector: 'app-forget-password',
