@@ -22,12 +22,8 @@ export class StudentService {
     constructor(
         private http: HttpClient,
         private nzNotificationService: NzNotificationService,
-    ) { }
-
-    getGradeAndClass(): Observable<Grade[] | void> {
-        return this.http.get('/api/student/getGrade').switchMap((res: AjaxReturn) => {
-            return this.returnData(res);
-        });
+    ) {
+        this.getGradeAndClass();
     }
 
     getStudentByGidCid(gradeId: number, classId: number): Observable<Student[] | void> {
@@ -40,6 +36,13 @@ export class StudentService {
         return this.http.get('/api/student/getStudent', { params: { page: `${page}` } }).switchMap((res: AjaxReturn) => {
             return this.returnData(res);
         });
+    }
+
+    private async getGradeAndClass() {
+        const res = await this.http.get<AjaxReturn>('/api/student/getGrade').toPromise();
+        if (res.stateCode === 1) {
+            this.gradeArray = res.data;
+        }
     }
 
     private returnData(result: AjaxReturn) {

@@ -1,3 +1,20 @@
-<p>
-  grade-select works!
-</p>
+<div nz-row class="grade-wrapper" [nzGutter] ="20" *ngIf="studentService">
+  <div nz-col [nzSpan]="12">
+    <nz-select class="set-block" [(ngModel)]="_selectGrade" [nzPlaceHolder]="'选择年级'" nzAllowClear>
+      <nz-option
+        *ngFor="let grade of studentService.gradeArray"
+        [nzLabel]="grade.gradeName"
+        [nzValue]="grade">
+      </nz-option>
+    </nz-select>
+  </div>
+  <div nz-col [nzSpan]="12">
+    <nz-select class="set-block" [(ngModel)]="_selectClass" [nzPlaceHolder]="'选择班级'" nzAllowClear>
+      <nz-option
+        *ngFor="let class of classArray"
+        [nzLabel]="class.className"
+        [nzValue]="class">
+      </nz-option>
+    </nz-select>
+  </div>
+</div>

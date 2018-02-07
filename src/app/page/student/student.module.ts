@@ -6,7 +6,8 @@ import { StudentRoutes } from './student.routing';
 import { SharedModule } from '../../shared/shared.module';
 import { HeaderComponent } from '../../common/header/header.component';
 import { StudentService } from '../../api/student.service';
-import { StudentWrapperComponent } from '../../common/student-wrapper/student-wrapper.component';
+import { StudentWrapperComponent } from './children/student-wrapper/student-wrapper.component';
+import { GradeSelectComponent } from './children/grade-select/grade-select.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { StudentWrapperComponent } from '../../common/student-wrapper/student-wr
   declarations: [
     StudentComponent,
     HeaderComponent,
-    StudentWrapperComponent
+    StudentWrapperComponent,
+    GradeSelectComponent
   ]
 })
 export class StudentModule { }

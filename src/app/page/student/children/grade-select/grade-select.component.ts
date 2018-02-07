@@ -1,4 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { StudentService } from '../../../../api/student.service';
+import { Grade } from '../../../../entity/grade';
+import { ClassNum } from '../../../../entity/class';
 
 @Component({
   selector: 'app-grade-select',
@@ -7,11 +10,52 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class GradeSelectComponent implements OnInit {
 
-  @Input() inputSize: string;
+  @Input() selectGrade: Grade;
+  @Input() selectClass: Grade;
+  @Output() selectGradeChange = new EventEmitter<Grade>();
+  @Output() selectClassChange = new EventEmitter<ClassNum>();
 
-  constructor() { }
+  classArray: ClassNum[];
+
+  set _selectGrade(value: Grade) {
+    this.selectGrade = value;
+    this.selectGradeChange.emit(value);
+    this._selectClass = null;
+    this.classArray = value.classes;
+  }
+
+  get _selectGrade() {
+    return this.selectGrade;
+  }
+
+  set _selectClass(value: ClassNum) {
+    this.selectClass = value;
+    this.selectClassChange.emit(value);
+  }
+
+  get _selectClass() {
+    return this.selectClass;
+  }
+
+  constructor(
+    private studentService: StudentService,
+  ) { }
 
   ngOnInit() {
+    this.loadGrade();
+    if (this._selectGrade) {
+      this._selectGrade = this.selectGrade;
+    }
+    if (this._selectClass) {
+      this._selectClass = this.selectClass;
+    }
+  }
+
+  async loadGrade() {
+    const res = await this.studentService.getGradeAndClass().toPromise();
+    if (res) {
+      this.studentService.gradeArray = res;
+    }
   }
 
 }

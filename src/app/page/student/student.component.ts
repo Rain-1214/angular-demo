@@ -14,10 +14,9 @@ import { AjaxReturn } from '../../entity/AjaxReturn';
 })
 export class StudentComponent implements OnInit {
 
-  gradeArray: Grade[];
   classArray: ClassNum[];
 
-  _selectGrade: Grade;
+  selectGrade: Grade;
   selectClass: ClassNum;
 
   currentPath: string;
@@ -26,24 +25,9 @@ export class StudentComponent implements OnInit {
   studentCountNum: number;
 
   _currentPageIndex = 1;
+
   loadStudentFlag = false;
 
-
-  // =======
-  ws: WebSocket;
-  imgUrl: string;
-  code: string;
-  // ========
-
-  set selectGrade(value: Grade) {
-    this._selectGrade = value;
-    this.classArray = value.classes;
-    this.selectClass = null;
-  }
-
-  get selectGrade() {
-    return this._selectGrade;
-  }
 
   set currentPageIndex(value) {
     this._currentPageIndex = value;
@@ -60,22 +44,12 @@ export class StudentComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loadGrade();
     this.loadStudent(1);
-    this.creatWs();
-  }
-
-  async loadGrade() {
-    const res = await this.studentService.getGradeAndClass().toPromise();
-    if (res) {
-      this.gradeArray = res;
-      this.studentService.gradeArray = this.gradeArray;
-    }
   }
 
   loadStudent(page: number) {
     this.loadStudentFlag = true;
-    this._selectGrade = null;
+    this.selectGrade = null;
     this.selectClass = null;
     this.currentPath = null;
     this.studentService.getStudent(page).subscribe(res => {
@@ -106,40 +80,6 @@ export class StudentComponent implements OnInit {
       }
       this.loadStudentFlag = false;
     });
-  }
-
-
-  // -------------------------------------------
-
-
-  creatWs() {
-    const ws = new WebSocket('ws://localhost:7200');
-    this.ws = ws;
-
-    ws.onopen = (event) => {
-      console.log('链接成功');
-    };
-
-    ws.onmessage = (event) => {
-      console.log(event.data);
-      this.imgUrl = JSON.parse(event.data).imgUrl;
-
-    };
-
-    ws.onclose = () => {
-      console.log('Ws已经关闭');
-    };
-  }
-
-  closeWs() {
-    this.ws.close();
-  }
-
-  send(event) {
-    console.log(event);
-    if (event.code === 'Enter') {
-      this.ws.send(this.code);
-    }
   }
 
 }
