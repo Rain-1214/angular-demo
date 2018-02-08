@@ -42,7 +42,6 @@ export class GradeSelectComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loadGrade();
     if (this._selectGrade) {
       this._selectGrade = this.selectGrade;
     }
@@ -50,12 +49,4 @@ export class GradeSelectComponent implements OnInit {
       this._selectClass = this.selectClass;
     }
   }
-
-  async loadGrade() {
-    const res = await this.studentService.getGradeAndClass().toPromise();
-    if (res) {
-      this.studentService.gradeArray = res;
-    }
-  }
-
 }

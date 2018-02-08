@@ -3,6 +3,7 @@ import { Student } from '../../../../entity/student';
 import { StudentService } from '../../../../api/student.service';
 import { Grade } from '../../../../entity/grade';
 import { ClassNum } from '../../../../entity/class';
+import { Clone } from '../../../../tool/clone';
 
 @Component({
   selector: 'app-student-wrapper',
@@ -29,10 +30,9 @@ export class StudentWrapperComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.studentCopy = Object.assign({}, this.student);
+    this.studentCopy = Clone.deepCopy(this.student);
     this.computeGrade();
   }
-
 
   computeGrade(): void {
     this.studentService.gradeArray.forEach((e) => {

@@ -38,11 +38,12 @@ export class StudentService {
         });
     }
 
-    private async getGradeAndClass() {
-        const res = await this.http.get<AjaxReturn>('/api/student/getGrade').toPromise();
-        if (res.stateCode === 1) {
-            this.gradeArray = res.data;
-        }
+    async getGradeAndClass() {
+        this.http.get<AjaxReturn>('/api/student/getGrade').subscribe(res => {
+            if (res.stateCode === 1) {
+                this.gradeArray = res.data;
+            }
+        });
     }
 
     private returnData(result: AjaxReturn) {

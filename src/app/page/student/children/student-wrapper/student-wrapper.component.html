@@ -4,7 +4,7 @@
     </div>
     <div nz-col [nzSpan]="18">
         <span *ngIf="!updateFlag">{{ student.name }}</span>
-        <nz-input *ngIf="updateFlag" [(ngModel)]="studentCopy.name" name="studentCopy.name" [nzPlaceHolder]="'name'" [nzSize]="'small'"></nz-input>
+        <nz-input *ngIf="updateFlag" [(ngModel)]="studentCopy.name" [name]="studentCopy.name" [nzPlaceHolder]="'name'" [nzSize]="'small'"></nz-input>
     </div>
     <div nz-col [nzSpan]="6">
         性别:
@@ -21,14 +21,14 @@
     </div>
     <div nz-col [nzSpan]="18">
         <span *ngIf="!updateFlag">{{ student.studentNumber }}</span>
-        <nz-input *ngIf="updateFlag" [(ngModel)]="studentCopy.studentNumber" name="studentCopy.studentNumber" [nzPlaceHolder]="'studentNumber'" [nzSize]="'small'"></nz-input>
+        <nz-input *ngIf="updateFlag" [(ngModel)]="studentCopy.studentNumber" [name]="studentCopy.studentNumber" [nzPlaceHolder]="'studentNumber'" [nzSize]="'small'"></nz-input>
     </div>
     <div nz-col [nzSpan]="6">
         班级：
     </div>
     <div nz-col [nzSpan]="18" *ngIf="studentService.gradeArray">
         <span *ngIf="!updateFlag">{{ currentGrade }}{{ currentClass }}</span>
-        <app-grade-select *ngIf="updateFlag" [(selectGrade)]='studentCopy' [(selectClass)]='studentCopy'></app-grade-select>
+        <app-grade-select *ngIf="updateFlag" [(selectGrade)]='selectGrade' [(selectClass)]='selectClass'></app-grade-select>
     </div>
     <div nz-col [nzSpan]="24">
         <button nz-button *ngIf="!updateFlag" (click)="updateFlag = true" [nzType]="'primary'" [nzSize]="'small'">修改</button>

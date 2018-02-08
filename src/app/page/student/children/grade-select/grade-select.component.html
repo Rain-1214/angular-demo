@@ -1,4 +1,4 @@
-<div nz-row class="grade-wrapper" [nzGutter] ="20" *ngIf="studentService">
+<div nz-row class="grade-wrapper" [nzGutter] ="20" *ngIf="studentService.gradeArray">
   <div nz-col [nzSpan]="12">
     <nz-select class="set-block" [(ngModel)]="_selectGrade" [nzPlaceHolder]="'选择年级'" nzAllowClear>
       <nz-option
