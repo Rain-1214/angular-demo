@@ -27,12 +27,44 @@
         班级：
     </div>
     <div nz-col [nzSpan]="18" *ngIf="studentService.gradeArray">
-        <span *ngIf="!updateFlag">{{ currentGrade }}{{ currentClass }}</span>
-        <app-grade-select *ngIf="updateFlag" [(selectGrade)]='selectGrade' [(selectClass)]='selectClass'></app-grade-select>
+        <span *ngIf="!updateFlag">{{ currentGrade.gradeName }}{{ currentClass.className }}</span>
+        <app-grade-select *ngIf="updateFlag" [gutterSize]="8" [(selectGrade)]='gradeCopy' [(selectClass)]='classCopy'></app-grade-select>
     </div>
     <div nz-col [nzSpan]="24">
         <button nz-button *ngIf="!updateFlag" (click)="updateFlag = true" [nzType]="'primary'" [nzSize]="'small'">修改</button>
-        <button nz-button *ngIf="updateFlag" (click)="update()" [nzType]="'primary'" [nzSize]="'small'">提交修改</button>
-        <button nz-button (click)="delete()" [nzType]="'danger'" [nzSize]="'small'">删除</button>
-    </div>	
+        <button nz-button *ngIf="!updateFlag" (click)="delete()" [nzType]="'danger'" [nzSize]="'small'">删除</button>
+        <button nz-button *ngIf="updateFlag" (click)="updateConfirmVisible = true" [nzType]="'primary'" [nzSize]="'small'">提交修改</button>
+        <button nz-button *ngIf="updateFlag" (click)="cancleUpdate()" [nzType]="'default'" [nzSize]="'small'">取消修改</button>
+    </div>
+
+    <nz-modal [nzVisible]="updateConfirmVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" (nzOnCancel)="updateConfirmVisible = false" (nzOnOk)="update($event)">
+        <ng-template #modalTitle>
+            <h4>确认修改</h4>
+        </ng-template>
+        <ng-template #modalContent>
+            <div nz-row [nzGutter]="8">
+                <div nz-col [nzSpan]="8" [nzOffset]="2">
+                    <ul>
+                        <li><h4>原数据</h4></li>
+                        <li><span>姓名</span> {{ student.name }}</li>
+                        <li><span>性别</span> {{ student.sex === 1 ? "男" : "女" }}</li>
+                        <li><span>学号</span> {{ student.studentNumber }}</li>
+                        <li><span>班级</span> {{ currentGrade.gradeName }} {{ currentClass.className }} </li>
+                    </ul>
+                </div>
+                <div class="center">
+                    <i class="anticon anticon-arrow-right"></i>
+                </div>
+                <div nz-col [nzSpan]="8" [nzOffset]="4">
+                    <ul>
+                        <li><h4>修改后</h4></li>
+                        <li><span>姓名</span> {{ studentCopy.name }}</li>
+                        <li><span>性别</span> {{ studentCopy.sex === 1 ? "男" : "女" }}</li>
+                        <li><span>学号</span> {{ studentCopy.studentNumber }}</li>
+                        <li><span>班级</span> {{ gradeCopy.gradeName }} {{ classCopy.className }} </li>
+                    </ul>
+                </div>
+            </div>
+        </ng-template>
+    </nz-modal>
 </div>

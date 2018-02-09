@@ -1,6 +1,6 @@
-<div nz-row class="grade-wrapper" [nzGutter] ="20" *ngIf="studentService.gradeArray">
+<div nz-row class="grade-wrapper" [nzGutter] ="gutterSize" *ngIf="studentService.gradeArray">
   <div nz-col [nzSpan]="12">
-    <nz-select class="set-block" [(ngModel)]="_selectGrade" [nzPlaceHolder]="'选择年级'" nzAllowClear>
+    <nz-select class="set-block" [(ngModel)]="selectGrade" [nzPlaceHolder]="'选择年级'" nzAllowClear>
       <nz-option
         *ngFor="let grade of studentService.gradeArray"
         [nzLabel]="grade.gradeName"
@@ -9,7 +9,7 @@
     </nz-select>
   </div>
   <div nz-col [nzSpan]="12">
-    <nz-select class="set-block" [(ngModel)]="_selectClass" [nzPlaceHolder]="'选择班级'" nzAllowClear>
+    <nz-select class="set-block" [(ngModel)]="selectClass" [nzPlaceHolder]="'选择班级'" nzAllowClear>
       <nz-option
         *ngFor="let class of classArray"
         [nzLabel]="class.className"

@@ -13,17 +13,15 @@ import { Clone } from '../../../../tool/clone';
 export class StudentWrapperComponent implements OnInit {
 
   @Input() student: Student;
-  currentGrade: string;
-  currentClass: string;
+  currentGrade: Grade;
+  currentClass: ClassNum;
 
   studentCopy: Student;
   gradeCopy: Grade;
   classCopy: ClassNum;
 
   updateFlag = false;
-
-  selectGrade: Grade;
-  selectClass: ClassNum;
+  updateConfirmVisible = true;
 
   constructor(
     private studentService: StudentService
@@ -35,18 +33,23 @@ export class StudentWrapperComponent implements OnInit {
   }
 
   computeGrade(): void {
-    this.studentService.gradeArray.forEach((e) => {
-      if (e.id === this.student.gradeId) {
-        this.currentGrade = e.gradeName;
-        this.gradeCopy = Object.assign({}, e);
-        e.classes.forEach(item => {
-          if (item.id === this.student.classId) {
-            this.currentClass = item.className;
-            this.classCopy = Object.assign({}, item);
-          }
-        });
-      }
-    });
+    const { gradeId, classId } = this.student;
+    const gradeAndClass = this.studentService.getGradeAndClassByGidCid(gradeId, classId);
+    this.currentGrade = gradeAndClass.get('grade');
+    this.currentClass = gradeAndClass.get('class');
+    this.gradeCopy = Clone.deepCopy(gradeAndClass.get('grade'));
+    this.classCopy = Clone.deepCopy(gradeAndClass.get('class'));
+  }
+
+  cancleUpdate(): void {
+    this.updateFlag = false;
+    this.gradeCopy = Clone.deepCopy(this.currentGrade);
+    this.classCopy = Clone.deepCopy(this.currentClass);
+    this.studentCopy = Clone.deepCopy(this.student);
+  }
+
+  update(): void {
+    
   }
 
 }

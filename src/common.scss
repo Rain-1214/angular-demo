@@ -39,6 +39,10 @@
     padding: 80px 0;
 }
 
+.center{
+    @include all-center(absolute);
+}
+
 .set-distance{
     margin-bottom: 10px;
 }

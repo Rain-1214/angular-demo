@@ -1,8 +1,6 @@
+import { ToolBase } from './ToolBase';
 
-export class Clone {
-
-    private static arrayTag = '[object Array]';
-    private static objectTag = '[object Object]';
+export class Clone extends ToolBase {
 
     private static loopPropertyArray = new Map();
 
@@ -10,7 +8,7 @@ export class Clone {
         if (typeof target !== 'object') {
             return target;
         }
-        const result = this.getTag(target) === this.arrayTag ? [] : {};
+        const result = this.getValueTag(target) === this.tag.arrayTag ? [] : {};
         for (const key in target) {
             if (target.hasOwnProperty(key)) {
                 result[key] = target[key];
@@ -23,12 +21,12 @@ export class Clone {
         if (typeof target !== 'object') {
             return target;
         }
-        const result = this.getTag(target) === this.arrayTag ? [] : {};
+        const result = this.getValueTag(target) === this.tag.arrayTag ? [] : {};
         for (const key in target) {
             if (target.hasOwnProperty(key)) {
                 this.loopPropertyArray.set(key, target[key]);
-                const currentTag = this.getTag(target[key]);
-                if (currentTag === this.objectTag || currentTag === this.arrayTag) {
+                const currentTag = this.getValueTag(target[key]);
+                if (currentTag === this.tag.arrayTag || currentTag === this.tag.objectTag) {
                     if (this.loopPropertyArray.has(key)) {
                         result[key] = this.loopPropertyArray.get(key);
                     } else {
@@ -41,10 +39,6 @@ export class Clone {
         }
         this.loopPropertyArray = new Map();
         return result;
-    }
-
-    private static getTag(target: any): string {
-        return Object.prototype.toString.call(target);
     }
 
 }

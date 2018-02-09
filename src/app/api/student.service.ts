@@ -8,6 +8,7 @@ import { Student } from '../entity/student';
 
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
+import { ClassNum } from '../entity/class';
 
 interface StusAndCountNum {
     students: Student[];
@@ -38,7 +39,28 @@ export class StudentService {
         });
     }
 
-    async getGradeAndClass() {
+    getGradeAndClassByGidCid(gradeId: number, classId: number): Map<string, Grade | ClassNum> {
+        const result = new Map<string, Grade | ClassNum>();
+        this.gradeArray.forEach((e) => {
+            if (e.id === gradeId) {
+                result.set('grade', e);
+                e.classes.forEach(item => {
+                    if (item.id === classId) {
+                        result.set('class', item);
+                    }
+                });
+            }
+        });
+        return result;
+    }
+
+    updateStudent(student: Student): Observable<boolean | void> {
+        return this.http.post('/api/student/updateStudent', student).switchMap((res: AjaxReturn) => {
+            return this.returnData(res);
+        });
+    }
+
+    private getGradeAndClass() {
         this.http.get<AjaxReturn>('/api/student/getGrade').subscribe(res => {
             if (res.stateCode === 1) {
                 this.gradeArray = res.data;

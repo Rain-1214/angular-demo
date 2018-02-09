@@ -2,7 +2,7 @@
   <app-header [username]="'ace'" [userRole]="'游客'"></app-header>
   <div nz-row class="grade-wrapper" [nzGutter] ="20">
     <div nz-col [nzSpan]="12">
-      <app-grade-select [(selectGrade)] = 'selectGrade' [(selectClass)]='selectClass'></app-grade-select>
+      <app-grade-select [gutterSize] = "20" [(selectGrade)] = 'selectGrade' [(selectClass)]='selectClass'></app-grade-select>
     </div>
     <div nz-col [nzSpan]="12">
       <button nz-button (click)="findStudnet()" [nzType]="'primary'" [nzSize]="'large'">查找</button>

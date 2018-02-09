@@ -2,6 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { StudentService } from '../../../../api/student.service';
 import { Grade } from '../../../../entity/grade';
 import { ClassNum } from '../../../../entity/class';
+import { Clone } from '../../../../tool/clone';
 
 @Component({
   selector: 'app-grade-select',
@@ -10,31 +11,38 @@ import { ClassNum } from '../../../../entity/class';
 })
 export class GradeSelectComponent implements OnInit {
 
-  @Input() selectGrade: Grade;
-  @Input() selectClass: Grade;
+  @Input() gutterSize: number;
+
+  _selectGrade: Grade;
+  _selectClass: ClassNum;
+
   @Output() selectGradeChange = new EventEmitter<Grade>();
   @Output() selectClassChange = new EventEmitter<ClassNum>();
 
   classArray: ClassNum[];
 
-  set _selectGrade(value: Grade) {
-    this.selectGrade = value;
+  @Input()
+  set selectGrade(value: Grade) {
+    this._selectGrade = value;
     this.selectGradeChange.emit(value);
-    this._selectClass = null;
-    this.classArray = value.classes;
+    if (value) {
+      this._selectClass = null;
+      this.classArray = value.classes;
+    }
   }
 
-  get _selectGrade() {
-    return this.selectGrade;
+  get selectGrade() {
+    return this._selectGrade;
   }
 
-  set _selectClass(value: ClassNum) {
-    this.selectClass = value;
+  @Input()
+  set selectClass(value: ClassNum) {
+    this._selectClass = value;
     this.selectClassChange.emit(value);
   }
 
-  get _selectClass() {
-    return this.selectClass;
+  get selectClass() {
+    return this._selectClass;
   }
 
   constructor(
@@ -42,11 +50,15 @@ export class GradeSelectComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (this._selectGrade) {
-      this._selectGrade = this.selectGrade;
-    }
-    if (this._selectClass) {
-      this._selectClass = this.selectClass;
+    this.setDefaultValue();
+  }
+
+  setDefaultValue() {
+    if (this.selectGrade && this.selectClass) {
+      const tempClass = this.selectClass;
+      const gradeAndClass = this.studentService.getGradeAndClassByGidCid(this.selectGrade.id, this.selectClass.id);
+      this.selectGrade = gradeAndClass.get('grade');
+      this.selectClass = gradeAndClass.get('class');
     }
   }
 }

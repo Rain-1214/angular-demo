@@ -10,3 +10,17 @@
         margin-bottom: 2px;
     }
 }
+
+
+ul{
+    width: 100px;
+    display: block;
+    margin: 0 auto;
+    li{
+        margin-bottom: 5px;
+        span{
+            display: inline-block;
+            width: 30px;
+        }
+    }
+}
