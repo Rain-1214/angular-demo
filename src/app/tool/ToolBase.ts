@@ -157,19 +157,19 @@ export class ToolBase {
     static floatComputeSuborDiv(sign: string, firstvalue: number, ...valueArray): number {
         return valueArray.reduce((sum, currentValue) => {
             if (!this.isNumber(currentValue)) {
-            return sum;
+                return sum;
             }
             sum = this.floatToInt(sum);
             currentValue = this.floatToInt(currentValue);
             switch (sign) {
-            case '-':
-                if (sum.times === currentValue.times) {
-                    return ((sum.allInteger - currentValue.allInteger) / sum.times);
-                }
-                return sum.times > currentValue.times ?
-                    (sum.allInteger - (currentValue.allInteger * (sum.times / currentValue.times))) / sum.times
-                    : (((sum.allInteger * (currentValue.times / sum.times)) - currentValue.allInteger) / currentValue.times);
-            default : return (sum.allInteger / currentValue.allInteger) * (sum.times / currentValue.times);
+                case '-':
+                    if (sum.times === currentValue.times) {
+                        return ((sum.allInteger - currentValue.allInteger) / sum.times);
+                    }
+                    return sum.times > currentValue.times ?
+                        (sum.allInteger - (currentValue.allInteger * (sum.times / currentValue.times))) / sum.times
+                        : (((sum.allInteger * (currentValue.times / sum.times)) - currentValue.allInteger) / currentValue.times);
+                default : return (sum.allInteger / currentValue.allInteger) * (sum.times / currentValue.times);
             }
         }, firstvalue);
     }

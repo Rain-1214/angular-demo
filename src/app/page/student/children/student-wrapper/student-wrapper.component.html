@@ -4,7 +4,7 @@
     </div>
     <div nz-col [nzSpan]="18">
         <span *ngIf="!updateFlag">{{ student.name }}</span>
-        <nz-input *ngIf="updateFlag" [(ngModel)]="studentCopy.name" [name]="studentCopy.name" [nzPlaceHolder]="'name'" [nzSize]="'small'"></nz-input>
+        <nz-input *ngIf="updateFlag" [(ngModel)]="studentCopy.name" [name]="studentCopy.name" [nzPlaceHolder]="'name'" [nzSize]="'normal'"></nz-input>
     </div>
     <div nz-col [nzSpan]="6">
         性别:
@@ -21,7 +21,7 @@
     </div>
     <div nz-col [nzSpan]="18">
         <span *ngIf="!updateFlag">{{ student.studentNumber }}</span>
-        <nz-input *ngIf="updateFlag" [(ngModel)]="studentCopy.studentNumber" [name]="studentCopy.studentNumber" [nzPlaceHolder]="'studentNumber'" [nzSize]="'small'"></nz-input>
+        <nz-input *ngIf="updateFlag" [(ngModel)]="studentCopy.studentNumber" [name]="studentCopy.studentNumber" [nzPlaceHolder]="'studentNumber'" [nzSize]="'normal'"></nz-input>
     </div>
     <div nz-col [nzSpan]="6">
         班级：
@@ -31,13 +31,26 @@
         <app-grade-select *ngIf="updateFlag" [gutterSize]="8" [(selectGrade)]='gradeCopy' [(selectClass)]='classCopy'></app-grade-select>
     </div>
     <div nz-col [nzSpan]="24">
-        <button nz-button *ngIf="!updateFlag" (click)="updateFlag = true" [nzType]="'primary'" [nzSize]="'small'">修改</button>
-        <button nz-button *ngIf="!updateFlag" (click)="delete()" [nzType]="'danger'" [nzSize]="'small'">删除</button>
-        <button nz-button *ngIf="updateFlag" (click)="updateConfirmVisible = true" [nzType]="'primary'" [nzSize]="'small'">提交修改</button>
-        <button nz-button *ngIf="updateFlag" (click)="cancleUpdate()" [nzType]="'default'" [nzSize]="'small'">取消修改</button>
+        <div *ngIf="mode !== 'add'; else add">
+            <button nz-button *ngIf="!updateFlag" (click)="updateFlag = true" [nzType]="'primary'" [nzSize]="'small'">修改</button>
+            <button nz-button *ngIf="!updateFlag" (click)="delete()" [nzType]="'danger'" [nzSize]="'small'">删除</button>
+            <button nz-button *ngIf="updateFlag" (click)="updateConfirmVisible = true" [nzType]="'primary'" [nzSize]="'small'">提交修改</button>
+            <button nz-button *ngIf="updateFlag" (click)="cancleUpdate()" [nzType]="'default'" [nzSize]="'small'">取消修改</button>
+        </div>
+        <ng-template #add>
+            <button nz-button (click)="addStudent()" [nzType]="'primary'" [nzSize]="'small'">添加单个</button>
+            <button nz-button (click)="resetStudent()" [nzType]="'default'" [nzSize]="'small'">重置</button>
+            <button nz-button (click)="deleteAddStudent()" [nzType]="'danger'" [nzSize]="'small'">删除此个添加</button>
+        </ng-template>
     </div>
 
-    <nz-modal [nzVisible]="updateConfirmVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" (nzOnCancel)="updateConfirmVisible = false" (nzOnOk)="update($event)">
+    <nz-modal 
+        *ngIf="mode !== 'add'"
+        [nzVisible]="updateConfirmVisible" 
+        [nzTitle]="modalTitle" 
+        [nzContent]="modalContent" 
+        (nzOnCancel)="updateConfirmVisible = false" 
+        (nzOnOk)="update($event)">
         <ng-template #modalTitle>
             <h4>确认修改</h4>
         </ng-template>

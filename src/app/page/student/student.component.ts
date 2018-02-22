@@ -25,9 +25,11 @@ export class StudentComponent implements OnInit {
   studentCountNum: number;
 
   _currentPageIndex = 1;
+  pageSize = 6;
 
   loadStudentFlag = false;
 
+  addStudentArray: Student[] = [];
 
   set currentPageIndex(value) {
     this._currentPageIndex = value;
@@ -80,6 +82,10 @@ export class StudentComponent implements OnInit {
       }
       this.loadStudentFlag = false;
     });
+  }
+
+  addEmptyStudent() {
+    this.addStudentArray.push(new Student());
   }
 
 }

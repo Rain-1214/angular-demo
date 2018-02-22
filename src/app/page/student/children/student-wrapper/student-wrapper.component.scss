@@ -1,13 +1,15 @@
 @import '../../../../../assets/sass/_variable.scss';
 
 .wrapper{
-    padding: 15px;
+    padding: 15px 15px 10px;
     margin-bottom: 10px;
     border: 1px solid $border-color-gray;
     border-radius: 5px;
     >div{
         height: 28px;
+        line-height: 28px;
         margin-bottom: 2px;
+        margin-bottom: 5px;
     }
 }
 

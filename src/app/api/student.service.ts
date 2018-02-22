@@ -73,6 +73,7 @@ export class StudentService {
             return Observable.of(result.data);
         } else {
             this.nzNotificationService.create('error', '有一个错误', result.message);
+            return Observable.of(null);
         }
     }
 
