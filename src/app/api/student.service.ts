@@ -56,7 +56,13 @@ export class StudentService {
 
     updateStudent(student: Student): Observable<boolean | void> {
         return this.http.post('/api/student/updateStudent', student).switchMap((res: AjaxReturn) => {
-            return this.returnData(res);
+            return this.returnData(res, true);
+        });
+    }
+
+    addStudents(students: Student[]): Observable<boolean | void> {
+        return this.http.put('/api/student/addStudent', { students }).switchMap((res: AjaxReturn) => {
+            return this.returnData(res, true);
         });
     }
 
@@ -68,9 +74,9 @@ export class StudentService {
         });
     }
 
-    private returnData(result: AjaxReturn) {
+    private returnData(result: AjaxReturn, resultData?: any): Observable<any> {
         if (result.stateCode === 1) {
-            return Observable.of(result.data);
+            return Observable.of(resultData || result.data);
         } else {
             this.nzNotificationService.create('error', '有一个错误', result.message);
             return Observable.of(null);

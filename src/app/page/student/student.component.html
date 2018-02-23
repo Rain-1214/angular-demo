@@ -20,7 +20,12 @@
     <div nz-row [nzGutter]="8">
         <div nz-col [nzSpan]="12">
           <button nz-button (click)="addEmptyStudent()" [nzType]="'default'" [nzSize]="'large'">添加学生</button>
-          <button nz-button (click)="selectAddStudent()" [nzType]="'primary'" [nzSize]="'large'">选择添加学生</button>
+          <button nz-button 
+            (click)="showAddStudentSelect()" [nzType]="'primary'" [nzSize]="'large'" 
+            [disabled]="addStudentArray.length == 0" *ngIf="!addSelectVisible">选择批量添加学生</button>
+          <button nz-button (click)="addStudent()" [nzType]="'primary'" [nzSize]="'large'" *ngIf="addSelectVisible">批量添加</button>
+          <button nz-button (click)="hideAddStudentSelect()" [nzType]="'primary'" [nzSize]="'large'" *ngIf="addSelectVisible">关闭选择添加</button>
+          
         </div>
         <div nz-col [nzSpan]="12">
           <nz-pagination class="pull-right" [(nzPageIndex)]="currentPageIndex" [(nzTotal)]="studentCountNum" [(nzPageSize)]="pageSize"></nz-pagination>
@@ -28,6 +33,12 @@
     </div>
   </div>
   <div class="grade-wrapper student-wrapper" nz-row [nzGutter]="15" *ngIf="addStudentArray.length !== 0">
-    <app-student-wrapper nz-col [nzSpan]="8" *ngFor="let student of addStudentArray" [student]="student" [mode]="'add'"></app-student-wrapper>
+    <app-student-wrapper 
+      nz-col [nzSpan]="8"
+      *ngFor="let student of addStudentArray; let i = index" 
+      [student]="student" [mode]="'add'" [studentIndex] = "i" [showSelect] = "addSelectVisible"
+      (deleteEvent)='deleteAddStudent($event)'
+      (resetEvent)='resetAddStudent($event)'
+      (selectEvent)='selectAddStudnet($event)'></app-student-wrapper>
   </div>
 </div>

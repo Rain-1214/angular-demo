@@ -30,6 +30,8 @@ export class StudentComponent implements OnInit {
   loadStudentFlag = false;
 
   addStudentArray: Student[] = [];
+  selectedAddStudentMap = new Map<number, Student>();
+  addSelectVisible = false;
 
   set currentPageIndex(value) {
     this._currentPageIndex = value;
@@ -49,7 +51,7 @@ export class StudentComponent implements OnInit {
     this.loadStudent(1);
   }
 
-  loadStudent(page: number) {
+  loadStudent(page: number): void {
     this.loadStudentFlag = true;
     this.selectGrade = null;
     this.selectClass = null;
@@ -63,11 +65,11 @@ export class StudentComponent implements OnInit {
     });
   }
 
-  setCurrentPath() {
+  setCurrentPath(): void {
     this.currentPath = `${this.selectGrade.gradeName}/${this.selectClass.className}`;
   }
 
-  findStudnet() {
+  findStudnet(): void | boolean {
     if (!this.selectGrade || !this.selectClass) {
       this.nzNotificationService.create('warning', '警告', '选好年级和班级才可以查询');
       return false;
@@ -84,8 +86,37 @@ export class StudentComponent implements OnInit {
     });
   }
 
-  addEmptyStudent() {
+  addEmptyStudent(): void {
     this.addStudentArray.push(new Student());
+  }
+
+  deleteAddStudent(deleteIndex: number): void {
+    this.addStudentArray.splice(deleteIndex, 1);
+  }
+
+  resetAddStudent(resetIndex: number): void {
+    this.addStudentArray[resetIndex] = new Student();
+  }
+
+  selectAddStudnet(flagAndIndex: { flag: boolean, index: number}): void {
+    if (flagAndIndex.flag) {
+      this.selectedAddStudentMap.set(flagAndIndex.index, this.addStudentArray[flagAndIndex.index]);
+    } else {
+      this.selectedAddStudentMap.delete(flagAndIndex.index);
+    }
+  }
+
+  addStudent() {
+    // const iterator = this.selectedAddStudentMap.values();
+    // console.log(iterator.next);
+  }
+
+  showAddStudentSelect() {
+    this.addSelectVisible = true;
+  }
+
+  hideAddStudentSelect() {
+    this.addSelectVisible = false;
   }
 
 }

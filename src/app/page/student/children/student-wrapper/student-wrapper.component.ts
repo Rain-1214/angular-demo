@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, EventEmitter, Output } from '@angular/core';
 import { Student } from '../../../../entity/student';
 import { StudentService } from '../../../../api/student.service';
 import { Grade } from '../../../../entity/grade';
@@ -15,7 +15,9 @@ import { NzNotificationService } from 'ng-zorro-antd';
 export class StudentWrapperComponent implements OnInit {
 
   @Input() mode: string;
+  @Input() studentIndex: number;
   @Input() student: Student;
+
   currentGrade: Grade;
   currentClass: ClassNum;
 
@@ -25,6 +27,13 @@ export class StudentWrapperComponent implements OnInit {
 
   updateFlag = false;
   updateConfirmVisible = false;
+
+  @Input() showSelect = false;
+  @Input() checkedFlag = false;
+
+  @Output() deleteEvent = new EventEmitter<number>();
+  @Output() resetEvent = new EventEmitter<number>();
+  @Output() selectEvent = new EventEmitter<{ flag: boolean, index: number }>();
 
   constructor(
     private studentService: StudentService,
@@ -74,6 +83,29 @@ export class StudentWrapperComponent implements OnInit {
         }
       });
     }
+  }
+
+  deleteAddStudent() {
+    this.deleteEvent.emit(this.studentIndex);
+  }
+
+  resetAddStudent() {
+    this.resetEvent.emit(this.studentIndex);
+  }
+
+  addStudent() {
+    this.studentCopy.gradeId = this.gradeCopy.id;
+    this.studentCopy.classId = this.classCopy.id;
+    this.studentService.addStudents([this.studentCopy]).subscribe(res => {
+      if (res) {
+        this.nzNotificationService.create('success', '提示', '添加成功');
+        this.deleteAddStudent();
+      }
+    });
+  }
+
+  checkedChange(checkedFlag: boolean) {
+    this.selectEvent.emit({ flag: checkedFlag, index: this.studentIndex });
   }
 
 }
