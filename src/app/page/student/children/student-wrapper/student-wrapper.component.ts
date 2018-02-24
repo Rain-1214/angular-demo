@@ -6,6 +6,13 @@ import { ClassNum } from '../../../../entity/class';
 import { Clone } from '../../../../tool/clone';
 import { Equal } from '../../../../tool/Equal';
 import { NzNotificationService } from 'ng-zorro-antd';
+import { ToolBase } from '../../../../tool/ToolBase';
+
+export interface SelectStudentMsg {
+  flag: boolean;
+  index: number;
+  student: Student;
+}
 
 @Component({
   selector: 'app-student-wrapper',
@@ -33,7 +40,8 @@ export class StudentWrapperComponent implements OnInit {
 
   @Output() deleteEvent = new EventEmitter<number>();
   @Output() resetEvent = new EventEmitter<number>();
-  @Output() selectEvent = new EventEmitter<{ flag: boolean, index: number }>();
+  @Output() selectEvent = new EventEmitter<SelectStudentMsg>();
+  @Output() addStudentEvent = new EventEmitter<boolean>();
 
   constructor(
     private studentService: StudentService,
@@ -44,7 +52,8 @@ export class StudentWrapperComponent implements OnInit {
     this.studentCopy = Clone.deepCopy(this.student);
     if (this.mode === 'add') {
       this.updateFlag = true;
-    } else {
+    }
+    if (this.studentCopy.gradeId !== undefined && this.studentCopy.classId !== undefined) {
       this.computeGrade();
     }
   }
@@ -94,18 +103,26 @@ export class StudentWrapperComponent implements OnInit {
   }
 
   addStudent() {
+    if (!ToolBase.checkEmptyProperty(this.studentCopy, ['name', 'studentNumber', 'sex'])
+        || this.gradeCopy === undefined || this.classCopy === undefined) {
+      this.nzNotificationService.create('error', '提示', '添加的学生当中含有无效信息');
+      return false;
+    }
     this.studentCopy.gradeId = this.gradeCopy.id;
     this.studentCopy.classId = this.classCopy.id;
     this.studentService.addStudents([this.studentCopy]).subscribe(res => {
       if (res) {
         this.nzNotificationService.create('success', '提示', '添加成功');
         this.deleteAddStudent();
+        this.addStudentEvent.emit(true);
       }
     });
   }
 
   checkedChange(checkedFlag: boolean) {
-    this.selectEvent.emit({ flag: checkedFlag, index: this.studentIndex });
+    this.studentCopy.gradeId = this.gradeCopy ? this.gradeCopy.id : undefined;
+    this.studentCopy.classId = this.classCopy ? this.classCopy.id : undefined;
+    this.selectEvent.emit({ flag: checkedFlag, index: this.studentIndex, student: this.studentCopy });
   }
 
 }

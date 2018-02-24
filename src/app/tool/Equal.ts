@@ -7,9 +7,9 @@ export class Equal extends ToolBase {
 
     /**
      * 深度比较两个对象或数组 不比较方法
-     * @param resource {Object | Array} 比较的对象
-     * @param target {Object | Array} 比较的对象
-     * @return result {Boolean} 比较的结果
+     * @param {Object | Array} resource  比较的对象
+     * @param {Object | Array} target 比较的对象
+     * @return {Boolean} result 比较的结果
      */
     static deepEqual(resource: any, target: any): boolean {
         if (!this.checkIsObjectOrArray(resource, target)) {

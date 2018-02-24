@@ -16,7 +16,7 @@
     <app-student-wrapper nz-col [nzSpan]="8" *ngFor="let student of students" [student]="student"></app-student-wrapper>
     <nz-spin [nzTip]="'正在读取数据...'" [class.hidden]="!loadStudentFlag"></nz-spin>
   </div>
-  <div class="grade-wrapper" *ngIf="!currentPath">
+  <div class="grade-wrapper">
     <div nz-row [nzGutter]="8">
         <div nz-col [nzSpan]="12">
           <button nz-button (click)="addEmptyStudent()" [nzType]="'default'" [nzSize]="'large'">添加学生</button>
@@ -27,7 +27,7 @@
           <button nz-button (click)="hideAddStudentSelect()" [nzType]="'primary'" [nzSize]="'large'" *ngIf="addSelectVisible">关闭选择添加</button>
           
         </div>
-        <div nz-col [nzSpan]="12">
+        <div nz-col [nzSpan]="12"  *ngIf="!currentPath">
           <nz-pagination class="pull-right" [(nzPageIndex)]="currentPageIndex" [(nzTotal)]="studentCountNum" [(nzPageSize)]="pageSize"></nz-pagination>
         </div>
     </div>
@@ -39,6 +39,7 @@
       [student]="student" [mode]="'add'" [studentIndex] = "i" [showSelect] = "addSelectVisible"
       (deleteEvent)='deleteAddStudent($event)'
       (resetEvent)='resetAddStudent($event)'
-      (selectEvent)='selectAddStudnet($event)'></app-student-wrapper>
+      (selectEvent)='selectAddStudnet($event)'
+      (addStudentEvent)='refreshStudent($event)'></app-student-wrapper>
   </div>
 </div>

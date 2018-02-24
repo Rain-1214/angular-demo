@@ -4,8 +4,12 @@ export class Clone extends ToolBase {
 
     private static loopPropertyArray = new Map();
 
+    /**
+     * 浅克隆一个对象 或数组
+     * @param {Object|Array} target 克隆的目标
+     */
     static shallowCopy(target: any): any {
-        if (typeof target !== 'object') {
+        if (this.getValueTag(target) !== this.tag.objectTag || this.getValueTag(target) !== this.tag.arrayTag) {
             return target;
         }
         const result = this.getValueTag(target) === this.tag.arrayTag ? [] : {};
@@ -17,8 +21,12 @@ export class Clone extends ToolBase {
         return result;
     }
 
+    /**
+     * 深克隆一个目标 支持循环引用
+     * @param {Object|Array} target 克隆的目标
+     */
     static deepCopy(target: any): any {
-        if (typeof target !== 'object') {
+        if (this.getValueTag(target) !== this.tag.objectTag && this.getValueTag(target) !== this.tag.arrayTag) {
             return target;
         }
         const result = this.getValueTag(target) === this.tag.arrayTag ? [] : {};

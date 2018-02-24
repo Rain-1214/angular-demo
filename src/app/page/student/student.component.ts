@@ -6,6 +6,9 @@ import { ClassNum } from '../../entity/class';
 import { Student } from '../../entity/student';
 import { Observable } from 'rxjs/Observable';
 import { AjaxReturn } from '../../entity/AjaxReturn';
+import { ToolBase } from '../../tool/ToolBase';
+import { Clone } from '../../tool/clone';
+import { SelectStudentMsg } from './children/student-wrapper/student-wrapper.component';
 
 @Component({
   selector: 'app-student',
@@ -13,8 +16,6 @@ import { AjaxReturn } from '../../entity/AjaxReturn';
   styleUrls: ['./student.component.scss']
 })
 export class StudentComponent implements OnInit {
-
-  classArray: ClassNum[];
 
   selectGrade: Grade;
   selectClass: ClassNum;
@@ -24,7 +25,7 @@ export class StudentComponent implements OnInit {
   students: Student[];
   studentCountNum: number;
 
-  _currentPageIndex = 1;
+  private _currentPageIndex = 1;
   pageSize = 6;
 
   loadStudentFlag = false;
@@ -87,7 +88,11 @@ export class StudentComponent implements OnInit {
   }
 
   addEmptyStudent(): void {
-    this.addStudentArray.push(new Student());
+    if (this.currentPath) {
+      this.addStudentArray.push(new Student(null, null, null, null, this.selectClass.id, this.selectGrade.id));
+    } else {
+      this.addStudentArray.push(new Student());
+    }
   }
 
   deleteAddStudent(deleteIndex: number): void {
@@ -98,25 +103,50 @@ export class StudentComponent implements OnInit {
     this.addStudentArray[resetIndex] = new Student();
   }
 
-  selectAddStudnet(flagAndIndex: { flag: boolean, index: number}): void {
+  selectAddStudnet(flagAndIndex: SelectStudentMsg): void {
     if (flagAndIndex.flag) {
-      this.selectedAddStudentMap.set(flagAndIndex.index, this.addStudentArray[flagAndIndex.index]);
+      this.selectedAddStudentMap.set(flagAndIndex.index, flagAndIndex.student);
     } else {
       this.selectedAddStudentMap.delete(flagAndIndex.index);
     }
   }
 
-  addStudent() {
-    // const iterator = this.selectedAddStudentMap.values();
-    // console.log(iterator.next);
+  addStudent(): void | boolean {
+    // const tempSelectAddStudent = [ ...this.selectedAddStudentMap.values() ];
+    const tempSelectAddStudent = [];
+    let emptyFlag = false;
+    this.selectedAddStudentMap.forEach((e) => {
+      if (!ToolBase.checkEmptyProperty(e, ['name', 'sex', 'studentNumber', 'gradeId', 'classId'])) {
+        emptyFlag = true;
+      }
+      tempSelectAddStudent.push(e);
+    });
+    console.log(tempSelectAddStudent);
+    if (emptyFlag || tempSelectAddStudent.length <= 0) {
+      const errorMessage = emptyFlag ? '选择提交的学生当中有无效的填写属性' : '没有勾选任何学生';
+      this.nzNotificationService.create('error', '提示', errorMessage);
+      return false;
+    }
+    this.studentService.addStudents(tempSelectAddStudent).subscribe(res => {
+      if (res) {
+        this.selectedAddStudentMap.forEach((e, i, map) => {
+          this.addStudentArray.slice(i, 1);
+          map.delete(i);
+        });
+      }
+    });
   }
 
-  showAddStudentSelect() {
+  showAddStudentSelect(): void {
     this.addSelectVisible = true;
   }
 
-  hideAddStudentSelect() {
+  hideAddStudentSelect(): void {
     this.addSelectVisible = false;
+  }
+
+  refreshStudent(): void {
+    this.loadStudent(this.currentPageIndex);
   }
 
 }

@@ -18,6 +18,7 @@ export class GradeSelectComponent implements OnInit {
 
   @Output() selectGradeChange = new EventEmitter<Grade>();
   @Output() selectClassChange = new EventEmitter<ClassNum>();
+  @Output() changeEvent = new EventEmitter<{ grade: Grade, class: ClassNum}>();
 
   classArray: ClassNum[];
 
@@ -25,6 +26,7 @@ export class GradeSelectComponent implements OnInit {
   set selectGrade(value: Grade) {
     this._selectGrade = value;
     this.selectGradeChange.emit(value);
+    this.changeEvent.emit({ grade: this.selectGrade, class: this.selectClass });
     if (value) {
       this._selectClass = null;
       this.classArray = value.classes;
@@ -39,6 +41,7 @@ export class GradeSelectComponent implements OnInit {
   set selectClass(value: ClassNum) {
     this._selectClass = value;
     this.selectClassChange.emit(value);
+    this.changeEvent.emit({ grade: this.selectGrade, class: this.selectClass });
   }
 
   get selectClass() {

@@ -85,7 +85,9 @@ export class ToolBase {
      * @param {Number} value 需要转换的值
      * @return {Object} -> {
      *  floatInt: 整数部分
+     *  floatIntStr: 整数部分(字符串)
      *  floatDecimal: 小数部分
+     *  floatDecimalStr: 小数部分(字符串)
      *  allInteger：转换成的整数
      *  times: 放大倍数
      * }
@@ -184,6 +186,23 @@ export class ToolBase {
         const maxObject = this.floatToInt(max);
         const minObject = this.floatToInt(min);
         return Math.floor((Math.random() * ((maxObject.floatInt - minObject.floatInt) + 1)) + minObject.floatInt);
+    }
+
+    /**
+     * 检测一个对象或数组中是否存在无效值 可自定义需要检测属性(数组为自定义下标)
+     * @param {Object|Array} target 检测的目标
+     * @param {String[]} property? 检测的属性
+     * @returns {boolean} 检测的属性当中存在无效值 false 否则 true
+     */
+    static checkEmptyProperty(target: Object | Array<string>, property?: string[]): boolean {
+        console.log(this.getValueTag(target));
+        if (this.getValueTag(target) !== this.tag.objectTag && this.getValueTag(target) !== this.tag.arrayTag) {
+            throw new Error('target must be Object or Array');
+        }
+        const checkPropertys = property ? property : Object.keys(target);
+        return checkPropertys.every((e) => {
+            return target[e] !== undefined && target[e] !== null && target[e] !== '';
+        });
     }
 
 
