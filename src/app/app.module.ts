@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routing';
 import { RouterModule } from '@angular/router';
+import { CheckAuthService } from './api/CheckAuth.service';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { RouterModule } from '@angular/router';
     RouterModule,
     AppRoutes,
   ],
+  providers: [ CheckAuthService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

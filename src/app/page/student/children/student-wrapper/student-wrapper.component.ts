@@ -5,7 +5,7 @@ import { Grade } from '../../../../entity/grade';
 import { ClassNum } from '../../../../entity/class';
 import { Clone } from '../../../../tool/clone';
 import { Equal } from '../../../../tool/Equal';
-import { NzNotificationService } from 'ng-zorro-antd';
+import { NzNotificationService, NzModalService } from 'ng-zorro-antd';
 import { ToolBase } from '../../../../tool/ToolBase';
 
 export interface SelectStudentMsg {
@@ -23,7 +23,26 @@ export class StudentWrapperComponent implements OnInit {
 
   @Input() mode: string;
   @Input() studentIndex: number;
-  @Input() student: Student;
+  @Input() showSelect = false;
+  @Input() checkedFlag = false;
+
+  @Output() deleteAddStuEvent = new EventEmitter<number>();
+  @Output() deleteStuEvent = new EventEmitter<boolean>();
+  @Output() resetEvent = new EventEmitter<number>();
+  @Output() selectEvent = new EventEmitter<SelectStudentMsg>();
+  @Output() addStudentEvent = new EventEmitter<boolean>();
+
+  _student: Student;
+  @Output() studentChange = new EventEmitter<Student>();
+  @Input()
+  set student(value: Student) {
+    this._student = value;
+    this.studentChange.emit(value);
+  }
+
+  get student() {
+    return this._student;
+  }
 
   currentGrade: Grade;
   currentClass: ClassNum;
@@ -35,27 +54,38 @@ export class StudentWrapperComponent implements OnInit {
   updateFlag = false;
   updateConfirmVisible = false;
 
-  @Input() showSelect = false;
-  @Input() checkedFlag = false;
-
-  @Output() deleteEvent = new EventEmitter<number>();
-  @Output() resetEvent = new EventEmitter<number>();
-  @Output() selectEvent = new EventEmitter<SelectStudentMsg>();
-  @Output() addStudentEvent = new EventEmitter<boolean>();
-
   constructor(
     private studentService: StudentService,
-    private nzNotificationService: NzNotificationService
+    private nzNotificationService: NzNotificationService,
+    private confirmService: NzModalService,
   ) { }
 
   ngOnInit() {
-    this.studentCopy = Clone.deepCopy(this.student);
     if (this.mode === 'add') {
+      this.studentCopy = this.student;
       this.updateFlag = true;
+    } else {
+      this.studentCopy = Clone.deepCopy(this.student);
     }
     if (this.studentCopy.gradeId !== undefined && this.studentCopy.classId !== undefined) {
       this.computeGrade();
     }
+  }
+
+  delete(): void {
+    this.confirmService.confirm({
+      title: '确认删除',
+      content: `您确认删除${this.currentGrade.gradeName}${this.currentClass.className}的${this.student.name}同学么?`,
+      showConfirmLoading: true,
+      onOk: () => {
+        this.studentService.deleteStudent([this.student.id]).subscribe(res => {
+          if (res) {
+            this.nzNotificationService.create('success', '提示', '删除成功');
+            this.deleteStuEvent.emit(true);
+          }
+        });
+      }
+    });
   }
 
   computeGrade(): void {
@@ -65,6 +95,15 @@ export class StudentWrapperComponent implements OnInit {
     this.currentClass = gradeAndClass.get('class');
     this.gradeCopy = Clone.deepCopy(gradeAndClass.get('grade'));
     this.classCopy = Clone.deepCopy(gradeAndClass.get('class'));
+  }
+
+  gradeChange(gradeandClass: { grade: Grade, class: ClassNum }) {
+    if (gradeandClass.grade && this.studentCopy.gradeId !== gradeandClass.grade.id) {
+      this.studentCopy.gradeId = gradeandClass.grade.id;
+    }
+    if (gradeandClass.class && this.studentCopy.classId !== gradeandClass.class.id) {
+      this.studentCopy.classId = gradeandClass.class.id;
+    }
   }
 
   cancleUpdate(): void {
@@ -84,7 +123,6 @@ export class StudentWrapperComponent implements OnInit {
       const { id, name, studentNumber, sex } = this.studentCopy;
       const updateStudent = new Student(id, name, +studentNumber, sex, this.classCopy.id, this.gradeCopy.id);
       this.studentService.updateStudent(updateStudent).subscribe(res => {
-        console.log(res);
         if (res) {
           this.updateFlag = false;
           this.updateConfirmVisible = false;
@@ -95,7 +133,7 @@ export class StudentWrapperComponent implements OnInit {
   }
 
   deleteAddStudent() {
-    this.deleteEvent.emit(this.studentIndex);
+    this.deleteAddStuEvent.emit(this.studentIndex);
   }
 
   resetAddStudent() {

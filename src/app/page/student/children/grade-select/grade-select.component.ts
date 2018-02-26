@@ -26,10 +26,11 @@ export class GradeSelectComponent implements OnInit {
   set selectGrade(value: Grade) {
     this._selectGrade = value;
     this.selectGradeChange.emit(value);
-    this.changeEvent.emit({ grade: this.selectGrade, class: this.selectClass });
     if (value) {
       this._selectClass = null;
       this.classArray = value.classes;
+    } else {
+      this.changeEvent.emit({ grade: null, class: null });
     }
   }
 

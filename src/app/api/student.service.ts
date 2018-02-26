@@ -66,6 +66,12 @@ export class StudentService {
         });
     }
 
+    deleteStudent(delStudentIds: number[]): Observable<boolean | void> {
+        return this.http.post('/api/student/deleteStudent', { ids: delStudentIds }).switchMap((res: AjaxReturn) => {
+            return this.returnData(res, true);
+        });
+    }
+
     private getGradeAndClass() {
         this.http.get<AjaxReturn>('/api/student/getGrade').subscribe(res => {
             if (res.stateCode === 1) {

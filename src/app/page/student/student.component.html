@@ -7,14 +7,25 @@
     <div nz-col [nzSpan]="12">
       <button nz-button (click)="findStudnet()" [nzType]="'primary'" [nzSize]="'large'">查找</button>
       <button nz-button (click)="currentPageIndex = 1" [nzType]="'primary'" [nzSize]="'large'" [disabled]="!currentPath">获取所有学生</button>
+      <button nz-button (click)="showSelectDelStu()" [nzType]="'default'" [nzSize]="'large'" *ngIf="!delSelectVisible">勾选批量删除</button>
+      <button nz-button (click)="deleteStudent()" [nzType]="'danger'" [nzSize]="'large'" *ngIf="delSelectVisible">确认删除</button>
+      <button nz-button (click)="hideSelectDelStu()" [nzType]="'default'" [nzSize]="'large'" *ngIf="delSelectVisible">取消勾选</button>
+      
     </div>
     <div nz-col [nzSpan]="24" *ngIf="currentPath">
       当前班级: <span> {{ currentPath }} </span>
     </div>
   </div>
   <div class="student-wrapper grade-wrapper" nz-row [nzGutter]="15" *ngIf="students && studentService.gradeArray">
-    <app-student-wrapper nz-col [nzSpan]="8" *ngFor="let student of students" [student]="student"></app-student-wrapper>
+    <app-student-wrapper nz-col [nzSpan]="8" *ngFor="let student of students;let i = index" 
+      [(student)]="students[i]" [showSelect] = "delSelectVisible"
+      (deleteStuEvent)="refreshStudent()"
+      (selectEvent)='selectdelStudnet($event)'
+      ></app-student-wrapper>
     <nz-spin [nzTip]="'正在读取数据...'" [class.hidden]="!loadStudentFlag"></nz-spin>
+    <div class="empty" *ngIf="students.length == 0">
+      没有信息
+    </div>
   </div>
   <div class="grade-wrapper">
     <div nz-row [nzGutter]="8">
@@ -36,8 +47,8 @@
     <app-student-wrapper 
       nz-col [nzSpan]="8"
       *ngFor="let student of addStudentArray; let i = index" 
-      [student]="student" [mode]="'add'" [studentIndex] = "i" [showSelect] = "addSelectVisible"
-      (deleteEvent)='deleteAddStudent($event)'
+      [(student)]="addStudentArray[i]" [mode]="'add'" [studentIndex] = "i" [showSelect] = "addSelectVisible"
+      (deleteAddStuEvent)='deleteAddStudent($event)'
       (resetEvent)='resetAddStudent($event)'
       (selectEvent)='selectAddStudnet($event)'
       (addStudentEvent)='refreshStudent($event)'></app-student-wrapper>

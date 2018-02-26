@@ -9,6 +9,7 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { RegisterComponent } from './children/register/register.component';
 import { UserComponent } from './user.component';
 import { ForgetPasswordComponent } from './children/forget-password/forget-password.component';
+import { CheckAuthService } from '../../api/CheckAuth.service';
 
 @NgModule({
   imports: [
@@ -17,7 +18,7 @@ import { ForgetPasswordComponent } from './children/forget-password/forget-passw
     NgZorroAntdModule.forRoot(),
   ],
   providers: [
-    UserService
+    UserService,
   ],
   declarations: [
     UserComponent,

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Grade } from '../../entity/grade';
 import { StudentService } from '../../api/student.service';
-import { NzNotificationService } from 'ng-zorro-antd';
+import { NzNotificationService, NzModalService } from 'ng-zorro-antd';
 import { ClassNum } from '../../entity/class';
 import { Student } from '../../entity/student';
 import { Observable } from 'rxjs/Observable';
@@ -28,11 +28,14 @@ export class StudentComponent implements OnInit {
   private _currentPageIndex = 1;
   pageSize = 6;
 
-  loadStudentFlag = false;
+  loadStudentFlag = true;
 
   addStudentArray: Student[] = [];
   selectedAddStudentMap = new Map<number, Student>();
   addSelectVisible = false;
+
+  selectedDelStudent: number[] = [];
+  delSelectVisible = false;
 
   set currentPageIndex(value) {
     this._currentPageIndex = value;
@@ -45,7 +48,8 @@ export class StudentComponent implements OnInit {
 
   constructor(
     private studentService: StudentService,
-    private nzNotificationService: NzNotificationService
+    private nzNotificationService: NzNotificationService,
+    private confirmService: NzModalService,
   ) { }
 
   ngOnInit() {
@@ -53,7 +57,6 @@ export class StudentComponent implements OnInit {
   }
 
   loadStudent(page: number): void {
-    this.loadStudentFlag = true;
     this.selectGrade = null;
     this.selectClass = null;
     this.currentPath = null;
@@ -97,17 +100,20 @@ export class StudentComponent implements OnInit {
 
   deleteAddStudent(deleteIndex: number): void {
     this.addStudentArray.splice(deleteIndex, 1);
+    if (this.addStudentArray.length <= 0) {
+      this.addSelectVisible = false;
+    }
   }
 
   resetAddStudent(resetIndex: number): void {
     this.addStudentArray[resetIndex] = new Student();
   }
 
-  selectAddStudnet(flagAndIndex: SelectStudentMsg): void {
-    if (flagAndIndex.flag) {
-      this.selectedAddStudentMap.set(flagAndIndex.index, flagAndIndex.student);
+  selectAddStudnet(selStuMsg: SelectStudentMsg): void {
+    if (selStuMsg.flag) {
+      this.selectedAddStudentMap.set(selStuMsg.index, selStuMsg.student);
     } else {
-      this.selectedAddStudentMap.delete(flagAndIndex.index);
+      this.selectedAddStudentMap.delete(selStuMsg.index);
     }
   }
 
@@ -121,7 +127,6 @@ export class StudentComponent implements OnInit {
       }
       tempSelectAddStudent.push(e);
     });
-    console.log(tempSelectAddStudent);
     if (emptyFlag || tempSelectAddStudent.length <= 0) {
       const errorMessage = emptyFlag ? '选择提交的学生当中有无效的填写属性' : '没有勾选任何学生';
       this.nzNotificationService.create('error', '提示', errorMessage);
@@ -129,10 +134,16 @@ export class StudentComponent implements OnInit {
     }
     this.studentService.addStudents(tempSelectAddStudent).subscribe(res => {
       if (res) {
-        this.selectedAddStudentMap.forEach((e, i, map) => {
-          this.addStudentArray.slice(i, 1);
-          map.delete(i);
+        const tempKeys = [];
+        this.selectedAddStudentMap.forEach((e, i) => {
+          tempKeys.push(i);
         });
+        tempKeys.sort((a, b) => b - a).forEach((e) => {
+          this.addStudentArray.splice(e, 1);
+        });
+        this.selectedAddStudentMap.clear();
+        this.nzNotificationService.create('success', '提示', '添加成功');
+        this.refreshStudent();
       }
     });
   }
@@ -146,7 +157,49 @@ export class StudentComponent implements OnInit {
   }
 
   refreshStudent(): void {
-    this.loadStudent(this.currentPageIndex);
+    if (this.currentPath) {
+      this.findStudnet();
+    } else {
+      this.loadStudent(this.currentPageIndex);
+    }
+  }
+
+  showSelectDelStu(): void {
+    this.delSelectVisible = true;
+  }
+
+  hideSelectDelStu(): void {
+    this.delSelectVisible = false;
+  }
+
+  selectdelStudnet(selStuMsg: SelectStudentMsg): void {
+    if (selStuMsg.flag) {
+      this.selectedDelStudent.push(selStuMsg.student.id);
+    } else {
+      this.selectedDelStudent.filter((e) => {
+        return e !== selStuMsg.student.id;
+      });
+    }
+  }
+
+  deleteStudent(): boolean {
+    if (this.selectedDelStudent.length <= 0) {
+      this.nzNotificationService.create('warning', '警告', '没有勾选任何学生');
+      return false;
+    }
+
+    this.confirmService.confirm({
+      title: '确认删除',
+      content: `确认删除勾选的所有同学么?`,
+      onOk: () => {
+        this.studentService.deleteStudent(this.selectedDelStudent).subscribe(res => {
+          if (res) {
+            this.nzNotificationService.create('success', '成功', '已成功删除选中同学');
+            this.refreshStudent();
+          }
+        });
+      }
+    });
   }
 
 }

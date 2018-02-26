@@ -1,4 +1,5 @@
 import { Routes, RouterModule } from '@angular/router';
+import { CheckAuthService } from './api/CheckAuth.service';
 
 const routes: Routes = [
   {
@@ -7,7 +8,8 @@ const routes: Routes = [
   },
   {
     path: 'student',
-    loadChildren: 'app/page/student/student.module#StudentModule'
+    loadChildren: 'app/page/student/student.module#StudentModule',
+    canLoad: [ CheckAuthService ]
   },
   {
     path: '',
